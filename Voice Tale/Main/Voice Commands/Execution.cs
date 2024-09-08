@@ -215,7 +215,7 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 // Handles the json
                 var handle = await op.HandleServerConnectionJson(response.Message);
-                Console.Beep(); // debug
+                //Console.Beep(); // debug
 
                 // If the connection is rejected
 
@@ -240,7 +240,7 @@ namespace Voice_Tale.Main.Voice_Commands
                     {
                         throw new Exception("Failed to build console client.");
                     }
-                    Console.Beep(); // This should now beep
+                    //Console.Beep(); // This should now beep
                     MessageBox.Show("Successfully connected to the server.");
                 }
 
@@ -252,7 +252,7 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 //consoleClient = bbuilder.BuildConsoleClient(bwebApiClient, serverId);
 
-                Console.Beep(); // This never beeps
+                //Console.Beep(); // This never beeps
 
                 if (consoleClient == null)
                 {
