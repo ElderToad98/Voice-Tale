@@ -1,0 +1,245 @@
+﻿using Bogus.Bson;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SQLite;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Speech.Recognition;
+using Townsharp.Infrastructure;
+using Townsharp.Infrastructure.Configuration;
+using Townsharp.Infrastructure.Consoles;
+using Voice_Tale.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Security.Cryptography;
+
+namespace Voice_Tale.Main.Voice_Commands
+{
+    public partial class Execution : Form
+    {
+        private DatabaseOperations dbop;
+        private Dictionary<string, int> serverDictionary = new Dictionary<string, int>();
+        private bool isConnecting = false;
+        private IConsoleClient consoleClient;
+        private MiscOperations op;
+        private SpeechRecognitionEngine recognizer;
+
+        public Execution()
+        {
+            InitializeComponent();
+
+            dbop = new DatabaseOperations();
+            op = new MiscOperations();
+
+            InitializeSpeechRecognition();
+         
+        }
+
+        private async void InitializeSpeechRecognition()
+        {
+            
+            recognizer = new SpeechRecognitionEngine();
+
+            // Loads grammar
+            var commands = new Choices();
+
+            var rawCommands = dbop.GetAllCommandNames();
+
+            if (rawCommands.Count == 0)
+            {
+                MessageBox.Show("No commands found. Please add at least one command before initializing speech recognition.");
+                return;
+            }
+
+            foreach (var rawCommand in rawCommands)
+            {
+                commands.Add(rawCommand);
+                CommandList.Items.Add(rawCommand);
+            }
+
+            var grammarBuilder = new GrammarBuilder();
+            grammarBuilder.Append(commands);
+            var grammar = new Grammar(grammarBuilder);
+            recognizer.LoadGrammar(grammar);
+
+
+
+            // Event handlers
+            recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+
+            // Configures input
+            recognizer.SetInputToDefaultAudioDevice();
+
+            // Continuous recognition
+            recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            await ConnectToServerAsync();
+        }
+
+
+        // When speech is recognized
+        private async void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            if (e.Result.Confidence < 0.94) // Confidence of 0.94
+            {
+                return;
+            }
+
+            var recognizedText = e.Result.Text;
+
+            var cmds = dbop.GetCommandByName(recognizedText); 
+            if (consoleClient is not null)
+            {
+                foreach (var cmd in cmds)
+                {
+                    try
+                    {
+                        await consoleClient.RunCommandAsync(cmd);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Unexpected error occurred when running command '{cmd}' in '{recognizedText}'\n\n{ex}");
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No active server connection. Please connect to a server before executing commands.");
+            }
+        }
+
+        // ApiResponse for server connection
+        public class ApiResponse
+        {
+            [JsonProperty("message")]
+            public string? Message { get; set; }
+
+            [JsonProperty("error_code")]
+            public string? ErrorCode { get; set; }
+        }
+
+
+        // File button click
+        private void File_Click(object sender, EventArgs e)
+        {
+            var filePath = dbop.GetFilePath("commands.txt");
+
+            try
+            {
+                Process.Start("explorer.exe", filePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to open the path: {ex.Message}");
+            }
+        }
+
+
+
+
+        
+
+
+
+        // When the info button is clicked
+        private void Info_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Welcome to the Command Executer!\n\nThis is the place where you can execute your own voice commands!\n\nTo use commands, configure your server ID in the settings in the main menu!");
+        }
+
+
+        // When the form loads
+        private async void Execution_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                isConnecting = true;
+                await ConnectToServerAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error when attempting to connect to the server\n\n{ex}");
+            }
+            finally
+            {
+                isConnecting = false;
+            }
+        }
+
+
+        // Connects to the server using creds from the db
+        private async Task ConnectToServerAsync()
+        {
+
+            // Get's variables from the database
+            var serverId = dbop.GetServerId();
+            var userName = dbop.GetUsername();
+            var userPasswordHash = dbop.GetPasswordHash();
+            var password = dbop.GetPassword();
+
+            // Essential t# stuff
+            var userCreds = new UserCredential(userName, userPasswordHash, password);
+            var builder = Builders.CreateUserClientBuilder(userCreds);
+            var webApiClient = builder.BuildWebApiClient();
+
+            // Bot cred stuff for debug
+
+            //var botCreds = BotCredential.FromEnvironmentVariables();
+            //var bbuilder = Builders.CreateBotClientBuilder(botCreds);
+            //var bwebApiClient = bbuilder.BuildWebApiClient();
+
+
+            try
+            {
+                Console.Beep(); // debug
+
+                // Requests console access and deserializes the json attatched
+
+                var req = await webApiClient.RequestConsoleAccessAsync(serverId);
+                //var req2 = await bwebApiClient.RequestConsoleAccessAsync(serverId);
+
+                ApiResponse response = JsonConvert.DeserializeObject<ApiResponse>(req.RawJson.ToJsonString());
+
+
+                // Handles the json
+                var handle = await op.HandleServerConnectionJson(response.Message);
+                //Console.Beep(); // debug
+
+                // If the connection is rejected
+
+                if (!handle)
+                {
+                    this.Close();
+                    return;
+                }
+
+
+
+                //MessageBox.Show(serverId.ToString()); MessageBox.Show(webApiClient.ToString());
+
+                consoleClient = builder.BuildConsoleClient(webApiClient, serverId); // This freezes the entire program
+
+                //consoleClient = bbuilder.BuildConsoleClient(bwebApiClient, serverId);
+                Console.Beep(); // This never beeps
+
+                if (consoleClient == null)
+                {
+                    throw new Exception("Failed to build console client.");
+                }
+
+                MessageBox.Show("Successfully connected to the server.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error during server connection: {ex.Message}");
+            }
+        }
+    }
+}
