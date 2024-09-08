@@ -113,6 +113,11 @@ namespace Voice_Tale.Main.Voice_Commands
             {
                 MessageBox.Show("No active server connection. Please connect to a server before executing commands.");
             }
+
+            CommandLog.Items.Add(recognizedText);
+
+            
+
         }
 
         // ApiResponse for server connection
@@ -198,7 +203,7 @@ namespace Voice_Tale.Main.Voice_Commands
 
             try
             {
-                Console.Beep(); // debug
+                //Console.Beep(); // debug
 
                 // Requests console access and deserializes the json attatched
 
@@ -210,7 +215,7 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 // Handles the json
                 var handle = await op.HandleServerConnectionJson(response.Message);
-                //Console.Beep(); // debug
+                Console.Beep(); // debug
 
                 // If the connection is rejected
 
@@ -224,9 +229,29 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 //MessageBox.Show(serverId.ToString()); MessageBox.Show(webApiClient.ToString());
 
-                consoleClient = builder.BuildConsoleClient(webApiClient, serverId); // This freezes the entire program
+                // Build the console client asynchronously
+                Task<IConsoleClient> buildTask = Task.Run(() => builder.BuildConsoleClient(webApiClient, serverId));
+
+                // Wait for the build task with a timeout
+                if (await Task.WhenAny(buildTask, Task.Delay(TimeSpan.FromSeconds(30))) == buildTask)
+                {
+                    consoleClient = await buildTask;
+                    if (consoleClient == null)
+                    {
+                        throw new Exception("Failed to build console client.");
+                    }
+                    Console.Beep(); // This should now beep
+                    MessageBox.Show("Successfully connected to the server.");
+                }
+
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(); // used to end the session.
+
+                await consoleClient.ConnectAsync(cancellationTokenSource.Token); // Connect the client to the console endpoint.
+
+
 
                 //consoleClient = bbuilder.BuildConsoleClient(bwebApiClient, serverId);
+
                 Console.Beep(); // This never beeps
 
                 if (consoleClient == null)
