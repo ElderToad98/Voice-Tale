@@ -38,7 +38,7 @@ namespace Voice_Tale
 
         private void Youtube_Click_1(object sender, EventArgs e) => OpenUrl("https://www.youtube.com/@eldertoad98");
 
-        private void Github_Click_1(object sender, EventArgs e) => MessageBox.Show("Sorry! This will be updated later!");
+        private void Github_Click_1(object sender, EventArgs e) => OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
 
         #endregion
 

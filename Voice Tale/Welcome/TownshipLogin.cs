@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -164,12 +165,23 @@ namespace Voice_Tale.Welcome
         }
 
 
+        private static void OpenUrl(string url)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while opening the URL: {ex.Message}");
+            }
+        }
 
 
         // Will give link to the github repo, eventually
         private void Github_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature is not yet implemented.");
+            OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
         }
     }
 
