@@ -21,7 +21,8 @@ namespace Voice_Tale
                              "Username TEXT, " +
                              "PasswordHash TEXT NOT NULL, " +
                              "Password TEXT NOT NULL, " +
-                             "ServerId INTEGER DEFAULT 1234)";
+                             "ServerId INTEGER DEFAULT 1234, " +
+                             "Confidence REAL DEFAULT 0.94)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
@@ -55,6 +56,51 @@ namespace Voice_Tale
                 }
             }
         }
+
+        public void ChangeConfidence(float newConfidence)
+        {
+            string sql = "UPDATE Users SET Confidence = @Confidence WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Confidence", newConfidence);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        // Gets Confidence
+        public float GetConfidence()
+        {
+            float Confidence = 0.94f; // Default value if no Confidence is found
+            string sql = "SELECT Confidence FROM Users WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal("Confidence")))
+                            {
+                                Confidence = (float)reader.GetDouble(reader.GetOrdinal("Confidence"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return Confidence;
+        }
+
+
 
         // Changes ServerId
         public void ChangeServerId(int newServerId)

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Voice_Tale.Main.Voice_Commands.Text_Editor;
 using Voice_Tale.Properties;
 
 namespace Voice_Tale.Main.Voice_Commands
@@ -28,16 +29,9 @@ namespace Voice_Tale.Main.Voice_Commands
         // This gets the file of the commands txt file
         private void File_Click(object sender, EventArgs e)
         {
-            var filePath = dbop.GetFilePath("commands.txt");
+            FileEditor f = new FileEditor();
+            f.ShowDialog();
 
-            try
-            {
-                Process.Start("explorer.exe", filePath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to open the path: {ex.Message}");
-            }
         }
 
 

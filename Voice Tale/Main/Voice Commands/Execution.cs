@@ -19,6 +19,7 @@ using Voice_Tale.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Security.Cryptography;
+using Voice_Tale.Main.Voice_Commands.Text_Editor;
 
 namespace Voice_Tale.Main.Voice_Commands
 {
@@ -134,16 +135,9 @@ namespace Voice_Tale.Main.Voice_Commands
         // File button click
         private void File_Click(object sender, EventArgs e)
         {
-            var filePath = dbop.GetFilePath("commands.txt");
-
-            try
-            {
-                Process.Start("explorer.exe", filePath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to open the path: {ex.Message}");
-            }
+            FileEditor f = new FileEditor();
+            f.ShowDialog();
+            
         }
 
 
@@ -229,7 +223,6 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 //MessageBox.Show(serverId.ToString()); MessageBox.Show(webApiClient.ToString());
 
-                // Build the console client asynchronously
                 Task<IConsoleClient> buildTask = Task.Run(() => builder.BuildConsoleClient(webApiClient, serverId));
 
                 // Wait for the build task with a timeout
@@ -240,7 +233,7 @@ namespace Voice_Tale.Main.Voice_Commands
                     {
                         throw new Exception("Failed to build console client.");
                     }
-                    //Console.Beep(); // This should now beep
+                    //Console.Beep(); 
                     MessageBox.Show("Successfully connected to the server.");
                 }
 

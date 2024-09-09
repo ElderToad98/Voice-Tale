@@ -33,6 +33,8 @@
             Save = new Button();
             ServerID = new TextBox();
             User = new Label();
+            Confidence = new TextBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -87,12 +89,39 @@
             User.TabIndex = 15;
             User.Text = "Server ID";
             // 
+            // Confidence
+            // 
+            Confidence.BackColor = Color.FromArgb(64, 68, 75);
+            Confidence.BorderStyle = BorderStyle.None;
+            Confidence.Font = new Font("Corbel", 20F, FontStyle.Bold);
+            Confidence.ForeColor = Color.White;
+            Confidence.Location = new Point(36, 206);
+            Confidence.Margin = new Padding(4);
+            Confidence.Name = "Confidence";
+            Confidence.PlaceholderText = "0.94";
+            Confidence.Size = new Size(229, 41);
+            Confidence.TabIndex = 16;
+            Confidence.TextChanged += textBox1_TextChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.FromArgb(153, 170, 181);
+            label2.Location = new Point(36, 182);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(84, 20);
+            label2.TabIndex = 17;
+            label2.Text = "Confidence";
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
             ClientSize = new Size(598, 450);
+            Controls.Add(label2);
+            Controls.Add(Confidence);
             Controls.Add(User);
             Controls.Add(ServerID);
             Controls.Add(Save);
@@ -110,5 +139,7 @@
         private Button Save;
         private TextBox ServerID;
         private Label User;
+        private TextBox Confidence;
+        private Label label2;
     }
 }

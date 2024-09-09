@@ -20,6 +20,7 @@ namespace Voice_Tale.Main
             InitializeComponent();
 
             ServerID.Text = dbop.GetServerId().ToString(); // Sets the base id to what it already is
+            Confidence.Text = dbop.GetConfidence().ToString();
 
         }
 
@@ -48,13 +49,39 @@ namespace Voice_Tale.Main
                 MessageBox.Show("Invalid Server ID format!");
                 return;
             }
-
             dbop.ChangeServerId(serverInt);
+
+
+            // Confidence
+
+            var c = Confidence.Text;
+            if (string.IsNullOrWhiteSpace(c))
+            {
+                MessageBox.Show("Confidence cannot be empty!");
+                return;
+            }
+
+            float cInt;
+            if (!float.TryParse(c, out cInt))
+            {
+                MessageBox.Show("Invalid Confidence format!");
+                return;
+            }
+
+            dbop.ChangeConfidence(cInt);
+
+
+
             MessageBox.Show("Settings saved!");
 
 
             this.Close();
 
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
