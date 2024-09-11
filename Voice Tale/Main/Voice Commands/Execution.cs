@@ -20,6 +20,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Security.Cryptography;
 using Voice_Tale.Main.Voice_Commands.Text_Editor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using System.Speech.Synthesis;
 
 namespace Voice_Tale.Main.Voice_Commands
 {
@@ -40,12 +42,14 @@ namespace Voice_Tale.Main.Voice_Commands
             op = new MiscOperations();
 
             InitializeSpeechRecognition();
-         
+
+
+
         }
 
         private async void InitializeSpeechRecognition()
         {
-            
+
             recognizer = new SpeechRecognitionEngine();
 
             // Loads grammar
@@ -62,7 +66,7 @@ namespace Voice_Tale.Main.Voice_Commands
             foreach (var rawCommand in rawCommands)
             {
                 commands.Add(rawCommand);
-                CommandList.Items.Add(rawCommand);
+                commandList.Items.Add(rawCommand);
             }
 
             var grammarBuilder = new GrammarBuilder();
@@ -87,14 +91,14 @@ namespace Voice_Tale.Main.Voice_Commands
         // When speech is recognized
         private async void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Confidence < 0.94) // Confidence of 0.94
+            if (e.Result.Confidence < dbop.GetConfidence())
             {
                 return;
             }
 
             var recognizedText = e.Result.Text;
 
-            var cmds = dbop.GetCommandByName(recognizedText); 
+            var cmds = dbop.GetCommandByName(recognizedText);
             if (consoleClient is not null)
             {
                 foreach (var cmd in cmds)
@@ -115,9 +119,34 @@ namespace Voice_Tale.Main.Voice_Commands
                 MessageBox.Show("No active server connection. Please connect to a server before executing commands.");
             }
 
-            CommandLog.Items.Add(recognizedText);
+            if (dbop.IsBeep() && dbop.IsVoice())
+            {
+                SpeechSynthesizer s = new SpeechSynthesizer();
+
+                Console.Beep();
+                s.Speak(recognizedText);
+                commandLog.Items.Add(recognizedText);
+                return;
+            }
+
+            else if (dbop.IsBeep())
+            {
+                Console.Beep();
+                commandLog.Items.Add(recognizedText);
+                return;
+            }
+
+            else if (dbop.IsVoice())
+            {
+                SpeechSynthesizer s = new SpeechSynthesizer();
+                s.Speak(recognizedText);
+                commandLog.Items.Add(recognizedText);
+                return;
+            }
 
             
+
+
 
         }
 
@@ -137,15 +166,8 @@ namespace Voice_Tale.Main.Voice_Commands
         {
             FileEditor f = new FileEditor();
             f.ShowDialog();
-            
+
         }
-
-
-
-
-        
-
-
 
         // When the info button is clicked
         private void Info_Click(object sender, EventArgs e)
@@ -161,6 +183,7 @@ namespace Voice_Tale.Main.Voice_Commands
             {
                 isConnecting = true;
                 await ConnectToServerAsync();
+                connLabel.Text = dbop.GetServerId().ToString();
             }
             catch (Exception ex)
             {
@@ -234,7 +257,7 @@ namespace Voice_Tale.Main.Voice_Commands
                         throw new Exception("Failed to build console client.");
                     }
                     //Console.Beep(); 
-                    MessageBox.Show("Successfully connected to the server.");
+                    //MessageBox.Show("Successfully connected to the server.");
                 }
 
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(); // used to end the session.
@@ -252,12 +275,32 @@ namespace Voice_Tale.Main.Voice_Commands
                     throw new Exception("Failed to build console client.");
                 }
 
-                MessageBox.Show("Successfully connected to the server.");
+
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error during server connection: {ex.Message}");
             }
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void CommandList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainPanel_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mainPanel_Paint_2(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

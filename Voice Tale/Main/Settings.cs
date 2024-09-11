@@ -22,6 +22,9 @@ namespace Voice_Tale.Main
             ServerID.Text = dbop.GetServerId().ToString(); // Sets the base id to what it already is
             Confidence.Text = dbop.GetConfidence().ToString();
 
+            Beep.Checked = dbop.IsBeep();
+            Speak.Checked = dbop.IsVoice(); 
+
         }
 
 
@@ -70,6 +73,34 @@ namespace Voice_Tale.Main
 
             dbop.ChangeConfidence(cInt);
 
+            // Beep on Command
+            if (Beep.Checked)
+            {
+
+                dbop.ChangeBeep(1);
+
+            }
+            else
+            {
+                dbop.ChangeBeep(0);
+            }
+
+            // Speak on command
+
+            
+            if (Speak.Checked)
+            {
+
+                dbop.ChangeVoice(1);
+
+            }
+            else
+            {
+                dbop.ChangeVoice(0);
+            }
+             
+
+
 
 
             MessageBox.Show("Settings saved!");
@@ -83,6 +114,11 @@ namespace Voice_Tale.Main
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Beep_CheckedChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

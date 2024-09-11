@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TownshipLogin));
             label1 = new Label();
-            Login = new Button();
             Password = new Label();
             User = new Label();
             Username = new TextBox();
@@ -40,6 +39,7 @@
             Github = new PictureBox();
             label2 = new Label();
             Misc = new Label();
+            Login = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Github).BeginInit();
@@ -56,21 +56,6 @@
             label1.Size = new Size(454, 64);
             label1.TabIndex = 0;
             label1.Text = "Login to Township!";
-            // 
-            // Login
-            // 
-            Login.BackColor = Color.FromArgb(114, 137, 218);
-            Login.Cursor = Cursors.Hand;
-            Login.Font = new Font("Corbel", 14F, FontStyle.Bold);
-            Login.ForeColor = Color.White;
-            Login.Location = new Point(31, 330);
-            Login.Margin = new Padding(4);
-            Login.Name = "Login";
-            Login.Size = new Size(153, 61);
-            Login.TabIndex = 1;
-            Login.Text = "Login";
-            Login.UseVisualStyleBackColor = false;
-            Login.Click += Login_Click;
             // 
             // Password
             // 
@@ -174,12 +159,27 @@
             Misc.Size = new Size(0, 31);
             Misc.TabIndex = 8;
             // 
+            // Login
+            // 
+            Login.BackColor = Color.FromArgb(114, 137, 218);
+            Login.FlatAppearance.BorderSize = 0;
+            Login.FlatStyle = FlatStyle.Flat;
+            Login.Font = new Font("Corbel", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Login.ForeColor = Color.White;
+            Login.Location = new Point(31, 337);
+            Login.Name = "Login";
+            Login.Size = new Size(200, 50);
+            Login.TabIndex = 9;
+            Login.Text = "Login";
+            Login.UseVisualStyleBackColor = false;
+            // 
             // TownshipLogin
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
             ClientSize = new Size(894, 553);
+            Controls.Add(Login);
             Controls.Add(Misc);
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
@@ -187,7 +187,6 @@
             Controls.Add(Username);
             Controls.Add(User);
             Controls.Add(Password);
-            Controls.Add(Login);
             Controls.Add(label1);
             Font = new Font("Corbel", 12F, FontStyle.Bold);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -206,7 +205,6 @@
         #endregion
 
         private Label label1;
-        private Button Login;
         private Label Password;
         private Label User;
         private TextBox Username;
@@ -216,5 +214,6 @@
         private Label label2;
         private PictureBox Github;
         private Label Misc;
+        private Button Login;
     }
 }

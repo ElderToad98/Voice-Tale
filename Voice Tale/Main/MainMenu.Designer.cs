@@ -2,15 +2,8 @@
 {
     partial class MainMenu
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,219 +15,207 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            panel1 = new Panel();
-            Settings = new PictureBox();
-            Github = new PictureBox();
-            Youtube = new PictureBox();
-            Discord = new PictureBox();
-            MainInfo = new PictureBox();
-            panel2 = new Panel();
-            label1 = new Label();
-            CommandCreate = new Button();
-            User = new Label();
-            button1 = new Button();
-            label2 = new Label();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Settings).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Github).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Youtube).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Discord).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)MainInfo).BeginInit();
-            panel2.SuspendLayout();
+            sidePanel = new Panel();
+            settingsButton = new Button();
+            githubButton = new Button();
+            youtubeButton = new Button();
+            discordButton = new Button();
+            mainInfoButton = new Button();
+            topPanel = new Panel();
+            titleLabel = new Label();
+            commandCreateButton = new Button();
+            commandExecuteButton = new Button();
+            manualCommandButton = new Button();
+            sidePanel.SuspendLayout();
+            topPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // sidePanel
             // 
-            panel1.BackColor = Color.FromArgb(114, 137, 218);
-            panel1.Controls.Add(Settings);
-            panel1.Controls.Add(Github);
-            panel1.Controls.Add(Youtube);
-            panel1.Controls.Add(Discord);
-            panel1.Controls.Add(MainInfo);
-            panel1.Location = new Point(-1, -8);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(115, 563);
-            panel1.TabIndex = 8;
+            sidePanel.BackColor = Color.FromArgb(47, 49, 54);
+            sidePanel.Controls.Add(settingsButton);
+            sidePanel.Controls.Add(githubButton);
+            sidePanel.Controls.Add(youtubeButton);
+            sidePanel.Controls.Add(discordButton);
+            sidePanel.Controls.Add(mainInfoButton);
+            sidePanel.Dock = DockStyle.Left;
+            sidePanel.Location = new Point(0, 0);
+            sidePanel.Name = "sidePanel";
+            sidePanel.Size = new Size(80, 600);
+            sidePanel.TabIndex = 8;
             // 
-            // Settings
+            // settingsButton
             // 
-            Settings.Cursor = Cursors.Hand;
-            Settings.Image = (Image)resources.GetObject("Settings.Image");
-            Settings.Location = new Point(26, 438);
-            Settings.Name = "Settings";
-            Settings.Size = new Size(51, 62);
-            Settings.TabIndex = 14;
-            Settings.TabStop = false;
-            Settings.Click += Settings_Click;
+            settingsButton.FlatAppearance.BorderSize = 0;
+            settingsButton.FlatStyle = FlatStyle.Flat;
+            settingsButton.Image = (Image)resources.GetObject("settingsButton.Image");
+            settingsButton.Location = new Point(10, 530);
+            settingsButton.Name = "settingsButton";
+            settingsButton.Size = new Size(60, 60);
+            settingsButton.TabIndex = 14;
+            settingsButton.UseVisualStyleBackColor = true;
+            settingsButton.Click += Settings_Click;
             // 
-            // Github
+            // githubButton
             // 
-            Github.Cursor = Cursors.Hand;
-            Github.Image = (Image)resources.GetObject("Github.Image");
-            Github.Location = new Point(26, 338);
-            Github.Name = "Github";
-            Github.Size = new Size(51, 62);
-            Github.TabIndex = 13;
-            Github.TabStop = false;
-            Github.Click += Github_Click_1;
+            githubButton.FlatAppearance.BorderSize = 0;
+            githubButton.FlatStyle = FlatStyle.Flat;
+            githubButton.Image = (Image)resources.GetObject("githubButton.Image");
+            githubButton.Location = new Point(10, 410);
+            githubButton.Name = "githubButton";
+            githubButton.Size = new Size(60, 60);
+            githubButton.TabIndex = 13;
+            githubButton.UseVisualStyleBackColor = true;
+            githubButton.Click += Github_Click_1;
             // 
-            // Youtube
+            // youtubeButton
             // 
-            Youtube.Cursor = Cursors.Hand;
-            Youtube.Image = (Image)resources.GetObject("Youtube.Image");
-            Youtube.Location = new Point(26, 230);
-            Youtube.Name = "Youtube";
-            Youtube.Size = new Size(51, 62);
-            Youtube.TabIndex = 12;
-            Youtube.TabStop = false;
-            Youtube.Click += Youtube_Click_1;
+            youtubeButton.FlatAppearance.BorderSize = 0;
+            youtubeButton.FlatStyle = FlatStyle.Flat;
+            youtubeButton.Image = (Image)resources.GetObject("youtubeButton.Image");
+            youtubeButton.Location = new Point(10, 290);
+            youtubeButton.Name = "youtubeButton";
+            youtubeButton.Size = new Size(60, 60);
+            youtubeButton.TabIndex = 12;
+            youtubeButton.UseVisualStyleBackColor = true;
+            youtubeButton.Click += Youtube_Click_1;
             // 
-            // Discord
+            // discordButton
             // 
-            Discord.Cursor = Cursors.Hand;
-            Discord.Image = (Image)resources.GetObject("Discord.Image");
-            Discord.Location = new Point(26, 134);
-            Discord.Name = "Discord";
-            Discord.Size = new Size(51, 62);
-            Discord.TabIndex = 11;
-            Discord.TabStop = false;
-            Discord.Click += Discord_Click;
+            discordButton.FlatAppearance.BorderSize = 0;
+            discordButton.FlatStyle = FlatStyle.Flat;
+            discordButton.Image = (Image)resources.GetObject("discordButton.Image");
+            discordButton.Location = new Point(10, 170);
+            discordButton.Name = "discordButton";
+            discordButton.Size = new Size(60, 60);
+            discordButton.TabIndex = 11;
+            discordButton.UseVisualStyleBackColor = true;
+            discordButton.Click += Discord_Click;
             // 
-            // MainInfo
+            // mainInfoButton
             // 
-            MainInfo.Cursor = Cursors.Hand;
-            MainInfo.Image = (Image)resources.GetObject("MainInfo.Image");
-            MainInfo.Location = new Point(26, 32);
-            MainInfo.Name = "MainInfo";
-            MainInfo.Size = new Size(51, 62);
-            MainInfo.TabIndex = 10;
-            MainInfo.TabStop = false;
-            MainInfo.Click += MainInfo_Click;
+            mainInfoButton.FlatAppearance.BorderSize = 0;
+            mainInfoButton.FlatStyle = FlatStyle.Flat;
+            mainInfoButton.Image = (Image)resources.GetObject("mainInfoButton.Image");
+            mainInfoButton.Location = new Point(10, 50);
+            mainInfoButton.Name = "mainInfoButton";
+            mainInfoButton.Size = new Size(60, 60);
+            mainInfoButton.TabIndex = 10;
+            mainInfoButton.UseVisualStyleBackColor = true;
+            mainInfoButton.Click += MainInfo_Click;
             // 
-            // panel2
+            // topPanel
             // 
-            panel2.BackColor = Color.FromArgb(35, 39, 50);
-            panel2.Controls.Add(label1);
-            panel2.Location = new Point(113, -8);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(969, 115);
-            panel2.TabIndex = 9;
+            topPanel.BackColor = Color.FromArgb(32, 34, 37);
+            topPanel.Controls.Add(titleLabel);
+            topPanel.Dock = DockStyle.Top;
+            topPanel.Location = new Point(80, 0);
+            topPanel.Name = "topPanel";
+            topPanel.Size = new Size(1104, 60);
+            topPanel.TabIndex = 9;
             // 
-            // label1
+            // titleLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Corbel", 30.8F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(114, 137, 218);
-            label1.Location = new Point(324, 30);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(292, 64);
-            label1.TabIndex = 11;
-            label1.Text = "Main Menu!";
+            titleLabel.Dock = DockStyle.Fill;
+            titleLabel.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLabel.ForeColor = Color.White;
+            titleLabel.Location = new Point(0, 0);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(1104, 60);
+            titleLabel.TabIndex = 11;
+            titleLabel.Text = "Voice Tale Menu";
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // CommandCreate
+            // commandCreateButton
             // 
-            CommandCreate.BackColor = Color.FromArgb(114, 137, 218);
-            CommandCreate.BackgroundImage = (Image)resources.GetObject("CommandCreate.BackgroundImage");
-            CommandCreate.BackgroundImageLayout = ImageLayout.Center;
-            CommandCreate.FlatAppearance.BorderSize = 0;
-            CommandCreate.FlatStyle = FlatStyle.Flat;
-            CommandCreate.Font = new Font("Corbel", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            CommandCreate.ForeColor = Color.White;
-            CommandCreate.Location = new Point(166, 115);
-            CommandCreate.Name = "CommandCreate";
-            CommandCreate.Size = new Size(215, 73);
-            CommandCreate.TabIndex = 10;
-            CommandCreate.UseVisualStyleBackColor = false;
-            CommandCreate.Click += CommandCreate_Click;
+            commandCreateButton.BackColor = Color.FromArgb(114, 137, 218);
+            commandCreateButton.FlatAppearance.BorderSize = 0;
+            commandCreateButton.FlatStyle = FlatStyle.Flat;
+            commandCreateButton.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            commandCreateButton.ForeColor = Color.White;
+            commandCreateButton.Image = (Image)resources.GetObject("commandCreateButton.Image");
+            commandCreateButton.Location = new Point(120, 100);
+            commandCreateButton.Name = "commandCreateButton";
+            commandCreateButton.Size = new Size(320, 200);
+            commandCreateButton.TabIndex = 10;
+            commandCreateButton.Text = "Command Creation";
+            commandCreateButton.TextAlign = ContentAlignment.BottomCenter;
+            commandCreateButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            commandCreateButton.UseVisualStyleBackColor = false;
+            commandCreateButton.Click += CommandCreate_Click;
             // 
-            // User
+            // commandExecuteButton
             // 
-            User.AutoSize = true;
-            User.ForeColor = Color.FromArgb(153, 170, 181);
-            User.Location = new Point(180, 191);
-            User.Margin = new Padding(4, 0, 4, 0);
-            User.Name = "User";
-            User.Size = new Size(176, 24);
-            User.TabIndex = 11;
-            User.Text = "Command Creation";
+            commandExecuteButton.BackColor = Color.FromArgb(114, 137, 218);
+            commandExecuteButton.FlatAppearance.BorderSize = 0;
+            commandExecuteButton.FlatStyle = FlatStyle.Flat;
+            commandExecuteButton.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            commandExecuteButton.ForeColor = Color.White;
+            commandExecuteButton.Image = (Image)resources.GetObject("commandExecuteButton.Image");
+            commandExecuteButton.Location = new Point(470, 100);
+            commandExecuteButton.Name = "commandExecuteButton";
+            commandExecuteButton.Size = new Size(320, 200);
+            commandExecuteButton.TabIndex = 12;
+            commandExecuteButton.Text = "Command Execution";
+            commandExecuteButton.TextAlign = ContentAlignment.BottomCenter;
+            commandExecuteButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            commandExecuteButton.UseVisualStyleBackColor = false;
+            commandExecuteButton.Click += button1_Click;
             // 
-            // button1
+            // manualCommandButton
             // 
-            button1.BackColor = Color.FromArgb(114, 137, 218);
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.Center;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Corbel", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(475, 115);
-            button1.Name = "button1";
-            button1.Size = new Size(215, 73);
-            button1.TabIndex = 12;
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = Color.FromArgb(153, 170, 181);
-            label2.Location = new Point(487, 191);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(189, 24);
-            label2.TabIndex = 13;
-            label2.Text = "Command Execution";
+            manualCommandButton.BackColor = Color.FromArgb(114, 137, 218);
+            manualCommandButton.FlatAppearance.BorderSize = 0;
+            manualCommandButton.FlatStyle = FlatStyle.Flat;
+            manualCommandButton.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            manualCommandButton.ForeColor = Color.White;
+            manualCommandButton.Image = (Image)resources.GetObject("manualCommandButton.Image");
+            manualCommandButton.Location = new Point(820, 100);
+            manualCommandButton.Name = "manualCommandButton";
+            manualCommandButton.Size = new Size(320, 200);
+            manualCommandButton.TabIndex = 14;
+            manualCommandButton.Text = "Send Manual Command";
+            manualCommandButton.TextAlign = ContentAlignment.BottomCenter;
+            manualCommandButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            manualCommandButton.UseVisualStyleBackColor = false;
+            manualCommandButton.Click += manualCommandButton_Click;
             // 
             // MainMenu
             // 
-            AutoScaleDimensions = new SizeF(11F, 24F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(1081, 553);
-            Controls.Add(label2);
-            Controls.Add(button1);
-            Controls.Add(User);
-            Controls.Add(CommandCreate);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
-            Font = new Font("Corbel", 12F, FontStyle.Bold);
-            ForeColor = SystemColors.Control;
+            BackColor = Color.FromArgb(54, 57, 63);
+            ClientSize = new Size(1184, 600);
+            Controls.Add(manualCommandButton);
+            Controls.Add(commandExecuteButton);
+            Controls.Add(commandCreateButton);
+            Controls.Add(topPanel);
+            Controls.Add(sidePanel);
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = Color.White;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4);
             Name = "MainMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Voice Tale Menu";
-            panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)Settings).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Github).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Youtube).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Discord).EndInit();
-            ((System.ComponentModel.ISupportInitialize)MainInfo).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            sidePanel.ResumeLayout(false);
+            topPanel.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private Panel panel1;
-        private Panel panel2;
-        private PictureBox MainInfo;
-        private PictureBox Settings;
-        private PictureBox Github;
-        private PictureBox Youtube;
-        private PictureBox Discord;
-        private Button CommandCreate;
-        private Label User;
-        private Label label1;
-        private Button button1;
-        private Label label2;
+        private Panel sidePanel;
+        private Panel topPanel;
+        private Button mainInfoButton;
+        private Button settingsButton;
+        private Button githubButton;
+        private Button youtubeButton;
+        private Button discordButton;
+        private Button commandCreateButton;
+        private Label titleLabel;
+        private Button commandExecuteButton;
+        private Button manualCommandButton;
     }
 }

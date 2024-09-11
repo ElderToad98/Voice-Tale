@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Voice_Tale.Main;
+using Voice_Tale.Main.Modules;
 using Voice_Tale.Main.Voice_Commands;
 
 namespace Voice_Tale
@@ -21,7 +22,7 @@ namespace Voice_Tale
         // Main Info Button
         private void MainInfo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Hello {specifiedName}!\nWelcome to the wonderful menu of Voice Tale!\n\nThis is the space where you can gain access to all sorts of things, such as command creation, command execution, and much more!");
+            MessageBox.Show($"Hello {specifiedName}!\nWelcome to the wonderful menu of Voice Tale!\n\nThis is the space where you can gain access to all sorts of things, such as command creation, command execution, and much more!\n\nVersion: M1");
         }
 
 
@@ -55,7 +56,7 @@ namespace Voice_Tale
                 MessageBox.Show($"An error occurred while opening the URL: {ex.Message}");
             }
         }
-        
+
 
         // This opens the command creation window
         private void CommandCreate_Click(object sender, EventArgs e)
@@ -75,6 +76,17 @@ namespace Voice_Tale
             ex.ShowDialog();
 
 
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void manualCommandButton_Click(object sender, EventArgs e)
+        {
+            ManualCommand manualCommand = new ManualCommand();
+            manualCommand.ShowDialog();
         }
     }
 }

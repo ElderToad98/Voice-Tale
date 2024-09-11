@@ -22,7 +22,9 @@ namespace Voice_Tale
                              "PasswordHash TEXT NOT NULL, " +
                              "Password TEXT NOT NULL, " +
                              "ServerId INTEGER DEFAULT 1234, " +
-                             "Confidence REAL DEFAULT 0.94)";
+                             "Confidence REAL DEFAULT 0.94, " +
+                             "BeepOnCommand INTEGER DEFAULT 0, " +
+                             "SpeakOnCommand INTEGER DEFAULT 0)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
@@ -73,6 +75,8 @@ namespace Voice_Tale
         }
 
 
+
+
         // Gets Confidence
         public float GetConfidence()
         {
@@ -98,6 +102,75 @@ namespace Voice_Tale
             }
 
             return Confidence;
+        }
+
+
+        public void ChangeBeep(int beep)
+        {
+            string sql = "UPDATE Users SET BeepOnCommand = @BeepOnCommand WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@BeepOnCommand", beep);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool IsBeep()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string sql = "SELECT BeepOnCommand FROM Users LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) == 1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+
+
+        public void ChangeVoice(float Voice)
+        {
+            string sql = "UPDATE Users SET SpeakOnCommand = @SpeakOnCommand WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@SpeakOnCommand", Voice);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool IsVoice()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string sql = "SELECT SpeakOnCommand FROM Users LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) == 1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
 
@@ -316,9 +389,17 @@ namespace Voice_Tale
         {
             string filePath = GetFilePath("commands.txt");
 
+            // Check if the command name or command string contains '(' or ')'
+            if (commandName.Contains('(') || commandName.Contains(')') || commandString.Contains('(') || commandString.Contains(')'))
+            {
+                MessageBox.Show("Command name or command string cannot contain '(' or ')'.");
+                return false; // Invalid characters found, don't save
+            }
+
             // Check if the command already exists
             if (File.ReadAllLines(filePath).Any(line => line.StartsWith(commandName + "(")))
             {
+                MessageBox.Show("Command already exists!\nDelete the command from the file to overwrite!");
                 return false; // Command already exists, don't save
             }
 
@@ -331,8 +412,11 @@ namespace Voice_Tale
             // Append the new command to the file
             File.AppendAllText(filePath, commandLine + Environment.NewLine);
 
+            MessageBox.Show("Command {commandName} created successfully!");
+
             return true; // Command saved successfully
         }
+
 
 
 

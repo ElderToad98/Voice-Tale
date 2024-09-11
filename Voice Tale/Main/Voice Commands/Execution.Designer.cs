@@ -13,179 +13,225 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Execution));
-            panel1 = new Panel();
+            sidePanel = new Panel();
+            infoButton = new Button();
+            mainPanel = new Panel();
+            commandLogPanel = new Panel();
+            commandLogLabel = new Label();
+            commandLog = new ListBox();
+            commandListPanel = new Panel();
+            commandList = new ListBox();
+            commandListLabel = new Label();
+            instructionLabel = new Label();
+            titleLabel = new Label();
+            connLabel = new Label();
             File = new PictureBox();
-            Info = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
-            CommandList = new ListBox();
-            CommandLog = new ListBox();
-            ConnLabel = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            panel1.SuspendLayout();
+            sidePanel.SuspendLayout();
+            mainPanel.SuspendLayout();
+            commandLogPanel.SuspendLayout();
+            commandListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)File).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Info).BeginInit();
             SuspendLayout();
             // 
-            // panel1
+            // sidePanel
             // 
-            panel1.BackColor = Color.FromArgb(114, 137, 218);
-            panel1.Controls.Add(File);
-            panel1.Controls.Add(Info);
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(120, 560);
-            panel1.TabIndex = 9;
+            sidePanel.BackColor = Color.FromArgb(114, 137, 218);
+            sidePanel.Controls.Add(File);
+            sidePanel.Controls.Add(infoButton);
+            sidePanel.Dock = DockStyle.Left;
+            sidePanel.Location = new Point(0, 0);
+            sidePanel.Name = "sidePanel";
+            sidePanel.Size = new Size(80, 561);
+            sidePanel.TabIndex = 9;
+            // 
+            // infoButton
+            // 
+            infoButton.BackColor = Color.Transparent;
+            infoButton.Cursor = Cursors.Hand;
+            infoButton.FlatAppearance.BorderSize = 0;
+            infoButton.FlatStyle = FlatStyle.Flat;
+            infoButton.Image = (Image)resources.GetObject("infoButton.Image");
+            infoButton.Location = new Point(10, 40);
+            infoButton.Name = "infoButton";
+            infoButton.Size = new Size(60, 60);
+            infoButton.TabIndex = 10;
+            infoButton.UseVisualStyleBackColor = false;
+            infoButton.Click += Info_Click;
+            // 
+            // mainPanel
+            // 
+            mainPanel.BackColor = Color.FromArgb(35, 39, 42);
+            mainPanel.Controls.Add(commandLogPanel);
+            mainPanel.Controls.Add(commandListPanel);
+            mainPanel.Controls.Add(instructionLabel);
+            mainPanel.Controls.Add(titleLabel);
+            mainPanel.Controls.Add(connLabel);
+            mainPanel.Dock = DockStyle.Fill;
+            mainPanel.Location = new Point(80, 0);
+            mainPanel.Name = "mainPanel";
+            mainPanel.Padding = new Padding(20);
+            mainPanel.Size = new Size(870, 561);
+            mainPanel.TabIndex = 10;
+            mainPanel.Paint += mainPanel_Paint_2;
+            // 
+            // commandLogPanel
+            // 
+            commandLogPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            commandLogPanel.BackColor = Color.FromArgb(44, 47, 51);
+            commandLogPanel.Controls.Add(commandLogLabel);
+            commandLogPanel.Controls.Add(commandLog);
+            commandLogPanel.Location = new Point(460, 150);
+            commandLogPanel.Name = "commandLogPanel";
+            commandLogPanel.Padding = new Padding(10);
+            commandLogPanel.Size = new Size(390, 391);
+            commandLogPanel.TabIndex = 24;
+            // 
+            // commandLogLabel
+            // 
+            commandLogLabel.Dock = DockStyle.Top;
+            commandLogLabel.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            commandLogLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            commandLogLabel.Location = new Point(10, 10);
+            commandLogLabel.Name = "commandLogLabel";
+            commandLogLabel.Size = new Size(370, 30);
+            commandLogLabel.TabIndex = 23;
+            commandLogLabel.Text = "Command Log";
+            // 
+            // commandLog
+            // 
+            commandLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            commandLog.BackColor = Color.FromArgb(35, 39, 42);
+            commandLog.BorderStyle = BorderStyle.None;
+            commandLog.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            commandLog.ForeColor = Color.White;
+            commandLog.FormattingEnabled = true;
+            commandLog.ItemHeight = 23;
+            commandLog.Location = new Point(10, 50);
+            commandLog.Name = "commandLog";
+            commandLog.Size = new Size(370, 322);
+            commandLog.TabIndex = 18;
+            // 
+            // commandListPanel
+            // 
+            commandListPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            commandListPanel.BackColor = Color.FromArgb(44, 47, 51);
+            commandListPanel.Controls.Add(commandList);
+            commandListPanel.Controls.Add(commandListLabel);
+            commandListPanel.Location = new Point(20, 150);
+            commandListPanel.Name = "commandListPanel";
+            commandListPanel.Padding = new Padding(10);
+            commandListPanel.Size = new Size(390, 391);
+            commandListPanel.TabIndex = 23;
+            // 
+            // commandList
+            // 
+            commandList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            commandList.BackColor = Color.FromArgb(35, 39, 42);
+            commandList.BorderStyle = BorderStyle.None;
+            commandList.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            commandList.ForeColor = Color.White;
+            commandList.FormattingEnabled = true;
+            commandList.ItemHeight = 23;
+            commandList.Location = new Point(10, 50);
+            commandList.Name = "commandList";
+            commandList.Size = new Size(370, 322);
+            commandList.TabIndex = 23;
+            // 
+            // commandListLabel
+            // 
+            commandListLabel.Dock = DockStyle.Top;
+            commandListLabel.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            commandListLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            commandListLabel.Location = new Point(10, 10);
+            commandListLabel.Name = "commandListLabel";
+            commandListLabel.Size = new Size(370, 30);
+            commandListLabel.TabIndex = 22;
+            commandListLabel.Text = "Command List";
+            // 
+            // instructionLabel
+            // 
+            instructionLabel.AutoSize = true;
+            instructionLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            instructionLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            instructionLabel.Location = new Point(20, 100);
+            instructionLabel.Name = "instructionLabel";
+            instructionLabel.Size = new Size(256, 23);
+            instructionLabel.TabIndex = 16;
+            instructionLabel.Text = "Speak a command to execute it!";
+            // 
+            // titleLabel
+            // 
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLabel.ForeColor = Color.FromArgb(114, 137, 218);
+            titleLabel.Location = new Point(20, 20);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(406, 54);
+            titleLabel.TabIndex = 10;
+            titleLabel.Text = "Execute a Command";
+            // 
+            // connLabel
+            // 
+            connLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            connLabel.AutoSize = true;
+            connLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            connLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            connLabel.Location = new Point(662, 20);
+            connLabel.Name = "connLabel";
+            connLabel.Size = new Size(168, 20);
+            connLabel.TabIndex = 20;
+            connLabel.Text = "Connected Server: None";
             // 
             // File
             // 
             File.Cursor = Cursors.Hand;
             File.Image = (Image)resources.GetObject("File.Image");
-            File.Location = new Point(35, 180);
+            File.Location = new Point(15, 249);
             File.Name = "File";
             File.Size = new Size(51, 62);
-            File.TabIndex = 16;
+            File.SizeMode = PictureBoxSizeMode.Zoom;
+            File.TabIndex = 17;
             File.TabStop = false;
-            File.Click += File_Click;
-            // 
-            // Info
-            // 
-            Info.Cursor = Cursors.Hand;
-            Info.Image = (Image)resources.GetObject("Info.Image");
-            Info.Location = new Point(35, 40);
-            Info.Name = "Info";
-            Info.Size = new Size(51, 62);
-            Info.TabIndex = 10;
-            Info.TabStop = false;
-            Info.Click += Info_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Corbel", 32F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(114, 137, 218);
-            label1.Location = new Point(180, 30);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(521, 66);
-            label1.TabIndex = 10;
-            label1.Text = "Execute a Command!";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.ForeColor = Color.FromArgb(153, 170, 181);
-            label2.Location = new Point(275, 100);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(278, 24);
-            label2.TabIndex = 16;
-            label2.Text = "Speak a command to execute it!";
-            // 
-            // CommandList
-            // 
-            CommandList.BackColor = Color.FromArgb(35, 39, 50);
-            CommandList.ForeColor = Color.White;
-            CommandList.FormattingEnabled = true;
-            CommandList.ItemHeight = 24;
-            CommandList.Location = new Point(201, 180);
-            CommandList.Name = "CommandList";
-            CommandList.Size = new Size(250, 292);
-            CommandList.TabIndex = 17;
-            CommandList.TabStop = false;
-            // 
-            // CommandLog
-            // 
-            CommandLog.BackColor = Color.FromArgb(35, 39, 50);
-            CommandLog.ForeColor = Color.White;
-            CommandLog.FormattingEnabled = true;
-            CommandLog.ItemHeight = 24;
-            CommandLog.Location = new Point(608, 180);
-            CommandLog.Name = "CommandLog";
-            CommandLog.Size = new Size(250, 292);
-            CommandLog.TabIndex = 18;
-            // 
-            // ConnLabel
-            // 
-            ConnLabel.AutoSize = true;
-            ConnLabel.Font = new Font("Corbel", 10F);
-            ConnLabel.ForeColor = Color.FromArgb(153, 170, 181);
-            ConnLabel.Location = new Point(722, 40);
-            ConnLabel.Margin = new Padding(4, 0, 4, 0);
-            ConnLabel.Name = "ConnLabel";
-            ConnLabel.Size = new Size(178, 21);
-            ConnLabel.TabIndex = 20;
-            ConnLabel.Text = "Connected Server: None";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.ForeColor = Color.FromArgb(153, 170, 181);
-            label4.Location = new Point(256, 500);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(133, 24);
-            label4.TabIndex = 21;
-            label4.Text = "Command List";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.ForeColor = Color.FromArgb(153, 170, 181);
-            label5.Location = new Point(671, 500);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(135, 24);
-            label5.TabIndex = 22;
-            label5.Text = "Command Log";
             // 
             // Execution
             // 
-            AutoScaleDimensions = new SizeF(11F, 24F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(950, 560);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(ConnLabel);
-            Controls.Add(CommandLog);
-            Controls.Add(CommandList);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(panel1);
-            Font = new Font("Corbel", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ClientSize = new Size(950, 561);
+            Controls.Add(mainPanel);
+            Controls.Add(sidePanel);
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.White;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4);
-            MaximizeBox = false;
+            MinimumSize = new Size(800, 600);
             Name = "Execution";
-            Text = "Command Creation";
+            Text = "Command Execution";
             Load += Execution_Load;
-            panel1.ResumeLayout(false);
+            sidePanel.ResumeLayout(false);
+            mainPanel.ResumeLayout(false);
+            mainPanel.PerformLayout();
+            commandLogPanel.ResumeLayout(false);
+            commandListPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)File).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Info).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
-
-        #endregion
-
-        private Panel panel1;
-        private PictureBox Info;
-        private Label label1;
+        private Panel sidePanel;
+        private Button infoButton;
+        private Panel mainPanel;
+        private Label titleLabel;
+        private Label instructionLabel;
+        private ListBox commandLog;
+        private Label connLabel;
+        private Panel commandListPanel;
+        private Label commandListLabel;
+        private Panel commandLogPanel;
+        private Label commandLogLabel;
+        private ListBox commandList;
         private PictureBox File;
-        private Label label2;
-        private ListBox CommandList;
-        private ListBox CommandLog;
-        private Label ConnLabel;
-        private Label label4;
-        private Label label5;
     }
 }

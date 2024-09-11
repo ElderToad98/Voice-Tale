@@ -1,20 +1,13 @@
-﻿using Bogus.DataSets;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Voice_Tale.Main.Voice_Commands.Text_Editor
 {
     partial class FileEditor
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -24,12 +17,6 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileEditor));
@@ -52,70 +39,75 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             panel1.Controls.Add(FileName);
             panel1.Controls.Add(RedoButton);
             panel1.Controls.Add(UndoButton);
-            panel1.Location = new Point(-1, -1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1502, 43);
-            panel1.TabIndex = 0;
+            panel1.Size = new Size(1000, 50);
+            panel1.TabIndex = 1;
             // 
             // pictureBox1
             // 
-            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             pictureBox1.Cursor = Cursors.Hand;
-            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(168, 5);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(958, 9);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(38, 38);
-            pictureBox1.TabIndex = 3;
+            pictureBox1.Size = new Size(32, 32);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
             // FileName
             // 
+            FileName.Anchor = AnchorStyles.None;
             FileName.AutoSize = true;
-            FileName.Font = new System.Drawing.Font("Corbel", 10F, FontStyle.Bold);
+            FileName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             FileName.ForeColor = Color.White;
-            FileName.Location = new Point(747, 10);
+            FileName.Location = new Point(450, 11);
             FileName.Name = "FileName";
-            FileName.Size = new Size(36, 21);
-            FileName.TabIndex = 2;
-            FileName.Text = "File";
+            FileName.Size = new Size(100, 28);
+            FileName.TabIndex = 1;
+            FileName.Text = "File Name";
+            FileName.TextAlign = ContentAlignment.MiddleCenter;
             FileName.Click += FileName_Click;
             // 
             // RedoButton
             // 
-            RedoButton.BackgroundImageLayout = ImageLayout.Stretch;
             RedoButton.Cursor = Cursors.Hand;
-            RedoButton.Image = (System.Drawing.Image)resources.GetObject("RedoButton.Image");
-            RedoButton.Location = new Point(70, 5);
+            RedoButton.Image = (Image)resources.GetObject("RedoButton.Image");
+            RedoButton.Location = new Point(50, 9);
             RedoButton.Name = "RedoButton";
-            RedoButton.Size = new Size(38, 38);
-            RedoButton.TabIndex = 1;
+            RedoButton.Size = new Size(32, 32);
+            RedoButton.SizeMode = PictureBoxSizeMode.Zoom;
+            RedoButton.TabIndex = 2;
             RedoButton.TabStop = false;
             RedoButton.Click += RedoButton_Click;
             // 
             // UndoButton
             // 
-            UndoButton.BackgroundImageLayout = ImageLayout.Stretch;
             UndoButton.Cursor = Cursors.Hand;
-            UndoButton.Image = (System.Drawing.Image)resources.GetObject("UndoButton.Image");
-            UndoButton.Location = new Point(26, 5);
+            UndoButton.Image = (Image)resources.GetObject("UndoButton.Image");
+            UndoButton.Location = new Point(10, 9);
             UndoButton.Name = "UndoButton";
-            UndoButton.Size = new Size(38, 35);
-            UndoButton.TabIndex = 0;
+            UndoButton.Size = new Size(32, 32);
+            UndoButton.SizeMode = PictureBoxSizeMode.Zoom;
+            UndoButton.TabIndex = 3;
             UndoButton.TabStop = false;
             UndoButton.Click += UndoButton_Click;
             // 
             // MainBox
             // 
             MainBox.BackColor = Color.FromArgb(29, 30, 38);
-            MainBox.Cursor = Cursors.IBeam;
-            MainBox.Font = new System.Drawing.Font("Corbel", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            MainBox.BorderStyle = BorderStyle.None;
+            MainBox.Dock = DockStyle.Fill;
+            MainBox.Font = new Font("Consolas", 12F);
             MainBox.ForeColor = Color.White;
-            MainBox.Location = new Point(12, 62);
+            MainBox.Location = new Point(0, 50);
             MainBox.Name = "MainBox";
-            MainBox.Size = new Size(1477, 799);
-            MainBox.TabIndex = 2;
-            MainBox.Text = "Loading....";
+            MainBox.Size = new Size(1000, 550);
+            MainBox.TabIndex = 0;
+            MainBox.Text = "";
             MainBox.TextChanged += MainBox_TextChanged;
             // 
             // FileEditor
@@ -123,10 +115,10 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(29, 30, 38);
-            ClientSize = new Size(1501, 873);
+            ClientSize = new Size(1000, 600);
             Controls.Add(MainBox);
             Controls.Add(panel1);
-            MaximizeBox = false;
+            MinimumSize = new Size(800, 450);
             Name = "FileEditor";
             Text = "ToadText Editor";
             Load += Form1_Load;
@@ -137,8 +129,6 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             ((System.ComponentModel.ISupportInitialize)UndoButton).EndInit();
             ResumeLayout(false);
         }
-
-        #endregion
 
         private Panel panel1;
         private RichTextBox MainBox;
