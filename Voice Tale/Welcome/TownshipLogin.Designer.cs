@@ -172,6 +172,7 @@
             Login.TabIndex = 9;
             Login.Text = "Login";
             Login.UseVisualStyleBackColor = false;
+            Login.Click += Login_Click_1;
             // 
             // TownshipLogin
             // 
