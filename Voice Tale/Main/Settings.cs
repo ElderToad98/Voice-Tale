@@ -23,7 +23,7 @@ namespace Voice_Tale.Main
             Confidence.Text = dbop.GetConfidence().ToString();
 
             Beep.Checked = dbop.IsBeep();
-            Speak.Checked = dbop.IsVoice(); 
+            Speak.Checked = dbop.IsVoice();
 
         }
 
@@ -87,7 +87,7 @@ namespace Voice_Tale.Main
 
             // Speak on command
 
-            
+
             if (Speak.Checked)
             {
 
@@ -98,7 +98,7 @@ namespace Voice_Tale.Main
             {
                 dbop.ChangeVoice(0);
             }
-             
+
 
 
 
@@ -118,7 +118,12 @@ namespace Voice_Tale.Main
 
         private void Beep_CheckedChanged(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void infoButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This is the area where you can change your settings, duh.\n\nServer ID: The server ID that all commands will be sent on.\n\nConfidence: Speech recognition confidence. The higher the number the more confident the program has to be to run a voice command. 0.94 seems to work best.\n\nBeep on Command: Beep when a voice command is ran successfully.\n\nTTS on Command: Text to speech will say your command name when the voice command is executed successfully.");
         }
     }
 }

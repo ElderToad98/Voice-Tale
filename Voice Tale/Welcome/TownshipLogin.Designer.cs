@@ -193,7 +193,7 @@
             Margin = new Padding(4);
             MaximizeBox = false;
             Name = "TownshipLogin";
-            Text = "Township Login";
+            Text = "Voice Tale | Township Login";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

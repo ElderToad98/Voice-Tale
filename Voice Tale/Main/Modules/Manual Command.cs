@@ -39,9 +39,14 @@ namespace Voice_Tale.Main.Modules
 
             var cmd = await consoleClient.RunCommandAsync(Command.Text);
 
+            if (Clear.Checked)
+            {
+                Command.Text = "";
+            }
+
             if (ShowJson.Checked)
             {
-                MessageBox.Show($"Command JSON:\n\n{cmd.ResultString}");
+                MessageBox.Show($"Command:\n{Command.ResetText}\n\n{cmd.ResultJson}");
             }
 
 
@@ -144,6 +149,7 @@ namespace Voice_Tale.Main.Modules
         private async void ManualCommand_Load(object sender, EventArgs e)
         {
             await ConnectToServerAsync();
+            connLabel.Text = $"Connected Server: {dbop.GetServerId().ToString()}";
         }
     }
 }

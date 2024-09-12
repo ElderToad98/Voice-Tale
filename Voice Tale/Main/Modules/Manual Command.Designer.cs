@@ -22,9 +22,11 @@
             label2 = new Label();
             Command = new TextBox();
             checkBoxPanel = new TableLayoutPanel();
+            Clear = new CheckBox();
             ShowJson = new CheckBox();
             Send = new Button();
             panel1 = new Panel();
+            connLabel = new Label();
             tableLayoutPanel1.SuspendLayout();
             checkBoxPanel.SuspendLayout();
             SuspendLayout();
@@ -33,6 +35,7 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(connLabel, 0, 6);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(label2, 0, 3);
             tableLayoutPanel1.Controls.Add(Command, 0, 4);
@@ -50,7 +53,8 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(588, 454);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(588, 353);
             tableLayoutPanel1.TabIndex = 21;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
@@ -96,6 +100,7 @@
             checkBoxPanel.ColumnCount = 2;
             checkBoxPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             checkBoxPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            checkBoxPanel.Controls.Add(Clear, 0, 0);
             checkBoxPanel.Controls.Add(ShowJson, 0, 0);
             checkBoxPanel.Location = new Point(23, 153);
             checkBoxPanel.Name = "checkBoxPanel";
@@ -103,6 +108,18 @@
             checkBoxPanel.RowStyles.Add(new RowStyle());
             checkBoxPanel.Size = new Size(542, 38);
             checkBoxPanel.TabIndex = 22;
+            // 
+            // Clear
+            // 
+            Clear.AutoSize = true;
+            Clear.Font = new Font("Segoe UI", 12F);
+            Clear.ForeColor = Color.White;
+            Clear.Location = new Point(274, 3);
+            Clear.Name = "Clear";
+            Clear.Size = new Size(251, 32);
+            Clear.TabIndex = 20;
+            Clear.Text = "Clear Command on Send";
+            Clear.UseVisualStyleBackColor = true;
             // 
             // ShowJson
             // 
@@ -124,7 +141,7 @@
             Send.FlatStyle = FlatStyle.Flat;
             Send.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             Send.ForeColor = Color.White;
-            Send.Location = new Point(23, 381);
+            Send.Location = new Point(23, 197);
             Send.Name = "Send";
             Send.Size = new Size(542, 50);
             Send.TabIndex = 13;
@@ -138,15 +155,27 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(10, 454);
+            panel1.Size = new Size(10, 353);
             panel1.TabIndex = 18;
+            // 
+            // connLabel
+            // 
+            connLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            connLabel.AutoSize = true;
+            connLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            connLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            connLabel.Location = new Point(397, 250);
+            connLabel.Name = "connLabel";
+            connLabel.Size = new Size(168, 20);
+            connLabel.TabIndex = 23;
+            connLabel.Text = "Connected Server: None";
             // 
             // ManualCommand
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(598, 454);
+            ClientSize = new Size(598, 353);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
             Font = new Font("Segoe UI", 9F);
@@ -171,5 +200,7 @@
         private CheckBox ShowJson;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel checkBoxPanel;
+        private CheckBox Clear;
+        private Label connLabel;
     }
 }

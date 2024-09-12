@@ -199,7 +199,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainMenu";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Voice Tale Menu";
+            Text = "Voice Tale | Main Menu";
             sidePanel.ResumeLayout(false);
             topPanel.ResumeLayout(false);
             ResumeLayout(false);

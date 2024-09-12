@@ -84,7 +84,7 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             ForeColor = Color.White;
             Margin = new Padding(4);
             Name = "Search";
-            Text = "ToadText Search";
+            Text = "Voice Tale | Toad Text Search";
             Load += Search_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

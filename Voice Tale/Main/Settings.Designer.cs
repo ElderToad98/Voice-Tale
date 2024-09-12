@@ -19,7 +19,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             tableLayoutPanel1 = new TableLayoutPanel();
-            label1 = new Label();
             User = new Label();
             ServerID = new TextBox();
             label2 = new Label();
@@ -28,6 +27,8 @@
             Beep = new CheckBox();
             Speak = new CheckBox();
             Save = new Button();
+            label1 = new Label();
+            infoButton = new Button();
             panel1 = new Panel();
             tableLayoutPanel1.SuspendLayout();
             checkBoxPanel.SuspendLayout();
@@ -37,18 +38,19 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(User, 0, 1);
             tableLayoutPanel1.Controls.Add(ServerID, 0, 2);
             tableLayoutPanel1.Controls.Add(label2, 0, 3);
             tableLayoutPanel1.Controls.Add(Confidence, 0, 4);
             tableLayoutPanel1.Controls.Add(checkBoxPanel, 0, 5);
             tableLayoutPanel1.Controls.Add(Save, 0, 6);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(infoButton, 0, 7);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(10, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(20);
-            tableLayoutPanel1.RowCount = 7;
+            tableLayoutPanel1.RowCount = 8;
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
@@ -56,19 +58,9 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(588, 454);
             tableLayoutPanel1.TabIndex = 21;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(114, 137, 218);
-            label1.Location = new Point(23, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(205, 62);
-            label1.TabIndex = 12;
-            label1.Text = "Settings";
             // 
             // User
             // 
@@ -141,7 +133,7 @@
             Beep.ForeColor = Color.White;
             Beep.Location = new Point(3, 3);
             Beep.Name = "Beep";
-            Beep.Size = new Size(279, 32);
+            Beep.Size = new Size(265, 32);
             Beep.TabIndex = 19;
             Beep.Text = "Beep on Speech Recognized";
             Beep.UseVisualStyleBackColor = true;
@@ -153,7 +145,7 @@
             Speak.ForeColor = Color.White;
             Speak.Location = new Point(274, 3);
             Speak.Name = "Speak";
-            Speak.Size = new Size(267, 32);
+            Speak.Size = new Size(265, 32);
             Speak.TabIndex = 20;
             Speak.Text = "TTS on Speech Recognized";
             Speak.UseVisualStyleBackColor = true;
@@ -166,13 +158,38 @@
             Save.FlatStyle = FlatStyle.Flat;
             Save.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             Save.ForeColor = Color.White;
-            Save.Location = new Point(23, 381);
+            Save.Location = new Point(23, 265);
             Save.Name = "Save";
             Save.Size = new Size(542, 50);
             Save.TabIndex = 13;
             Save.Text = "Save Changes";
             Save.UseVisualStyleBackColor = false;
             Save.Click += Save_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(114, 137, 218);
+            label1.Location = new Point(23, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(205, 62);
+            label1.TabIndex = 12;
+            label1.Text = "Settings";
+            // 
+            // infoButton
+            // 
+            infoButton.BackColor = Color.Transparent;
+            infoButton.Cursor = Cursors.Default;
+            infoButton.FlatAppearance.BorderSize = 0;
+            infoButton.FlatStyle = FlatStyle.Flat;
+            infoButton.Image = (Image)resources.GetObject("infoButton.Image");
+            infoButton.Location = new Point(23, 321);
+            infoButton.Name = "infoButton";
+            infoButton.Size = new Size(60, 60);
+            infoButton.TabIndex = 23;
+            infoButton.UseVisualStyleBackColor = false;
+            infoButton.Click += infoButton_Click;
             // 
             // panel1
             // 
@@ -195,7 +212,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(450, 400);
             Name = "Settings";
-            Text = "Settings";
+            Text = "Voice Tale | Settings";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             checkBoxPanel.ResumeLayout(false);
@@ -216,5 +233,6 @@
         private CheckBox Speak;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel checkBoxPanel;
+        private Button infoButton;
     }
 }

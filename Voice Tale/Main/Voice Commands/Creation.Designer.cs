@@ -192,7 +192,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 600);
             Name = "Creation";
-            Text = "Command Creation";
+            Text = "Voice Tale | Command Creation";
             Load += Creation_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)File).EndInit();

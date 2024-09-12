@@ -169,10 +169,11 @@ namespace Voice_Tale
             Controls.Add(gradientPanel);
             Font = new Font("Corbel", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "WelcomeForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Welcome";
+            Text = "Voice Tale | Welcome";
             gradientPanel.ResumeLayout(false);
             gradientPanel.PerformLayout();
             logoPanel.ResumeLayout(false);

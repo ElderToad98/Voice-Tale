@@ -66,7 +66,7 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             FileName.ForeColor = Color.White;
             FileName.Location = new Point(450, 11);
             FileName.Name = "FileName";
-            FileName.Size = new Size(100, 28);
+            FileName.Size = new Size(107, 28);
             FileName.TabIndex = 1;
             FileName.Text = "File Name";
             FileName.TextAlign = ContentAlignment.MiddleCenter;
@@ -118,9 +118,10 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             ClientSize = new Size(1000, 600);
             Controls.Add(MainBox);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 450);
             Name = "FileEditor";
-            Text = "ToadText Editor";
+            Text = "Voice Tale | Toad Text";
             Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

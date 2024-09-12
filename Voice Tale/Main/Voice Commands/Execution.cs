@@ -183,7 +183,7 @@ namespace Voice_Tale.Main.Voice_Commands
             {
                 isConnecting = true;
                 await ConnectToServerAsync();
-                connLabel.Text = dbop.GetServerId().ToString();
+                connLabel.Text = "Connected Server: " + dbop.GetServerId().ToString();
             }
             catch (Exception ex)
             {

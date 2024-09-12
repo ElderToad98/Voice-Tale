@@ -17,6 +17,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Execution));
             sidePanel = new Panel();
+            File = new PictureBox();
             infoButton = new Button();
             mainPanel = new Panel();
             commandLogPanel = new Panel();
@@ -28,12 +29,11 @@
             instructionLabel = new Label();
             titleLabel = new Label();
             connLabel = new Label();
-            File = new PictureBox();
             sidePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)File).BeginInit();
             mainPanel.SuspendLayout();
             commandLogPanel.SuspendLayout();
             commandListPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)File).BeginInit();
             SuspendLayout();
             // 
             // sidePanel
@@ -46,6 +46,17 @@
             sidePanel.Name = "sidePanel";
             sidePanel.Size = new Size(80, 561);
             sidePanel.TabIndex = 9;
+            // 
+            // File
+            // 
+            File.Cursor = Cursors.Hand;
+            File.Image = (Image)resources.GetObject("File.Image");
+            File.Location = new Point(15, 249);
+            File.Name = "File";
+            File.Size = new Size(51, 62);
+            File.SizeMode = PictureBoxSizeMode.Zoom;
+            File.TabIndex = 17;
+            File.TabStop = false;
             // 
             // infoButton
             // 
@@ -185,17 +196,6 @@
             connLabel.TabIndex = 20;
             connLabel.Text = "Connected Server: None";
             // 
-            // File
-            // 
-            File.Cursor = Cursors.Hand;
-            File.Image = (Image)resources.GetObject("File.Image");
-            File.Location = new Point(15, 249);
-            File.Name = "File";
-            File.Size = new Size(51, 62);
-            File.SizeMode = PictureBoxSizeMode.Zoom;
-            File.TabIndex = 17;
-            File.TabStop = false;
-            // 
             // Execution
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -209,14 +209,14 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 600);
             Name = "Execution";
-            Text = "Command Execution";
+            Text = "Voice Tale | Voice Command Execution";
             Load += Execution_Load;
             sidePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)File).EndInit();
             mainPanel.ResumeLayout(false);
             mainPanel.PerformLayout();
             commandLogPanel.ResumeLayout(false);
             commandListPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)File).EndInit();
             ResumeLayout(false);
         }
 
