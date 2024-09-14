@@ -18,6 +18,7 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            connLabel = new Label();
             label1 = new Label();
             label2 = new Label();
             Command = new TextBox();
@@ -26,7 +27,6 @@
             ShowJson = new CheckBox();
             Send = new Button();
             panel1 = new Panel();
-            connLabel = new Label();
             tableLayoutPanel1.SuspendLayout();
             checkBoxPanel.SuspendLayout();
             SuspendLayout();
@@ -36,11 +36,11 @@
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(connLabel, 0, 6);
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(label2, 0, 3);
             tableLayoutPanel1.Controls.Add(Command, 0, 4);
             tableLayoutPanel1.Controls.Add(checkBoxPanel, 0, 5);
             tableLayoutPanel1.Controls.Add(Send, 0, 6);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(10, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -57,6 +57,18 @@
             tableLayoutPanel1.Size = new Size(588, 353);
             tableLayoutPanel1.TabIndex = 21;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            // 
+            // connLabel
+            // 
+            connLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            connLabel.AutoSize = true;
+            connLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            connLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            connLabel.Location = new Point(397, 194);
+            connLabel.Name = "connLabel";
+            connLabel.Size = new Size(168, 20);
+            connLabel.TabIndex = 23;
+            connLabel.Text = "Connected Server: None";
             // 
             // label1
             // 
@@ -141,9 +153,9 @@
             Send.FlatStyle = FlatStyle.Flat;
             Send.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             Send.ForeColor = Color.White;
-            Send.Location = new Point(23, 197);
+            Send.Location = new Point(23, 273);
             Send.Name = "Send";
-            Send.Size = new Size(542, 50);
+            Send.Size = new Size(542, 57);
             Send.TabIndex = 13;
             Send.Text = "Send Command";
             Send.UseVisualStyleBackColor = false;
@@ -157,18 +169,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(10, 353);
             panel1.TabIndex = 18;
-            // 
-            // connLabel
-            // 
-            connLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            connLabel.AutoSize = true;
-            connLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            connLabel.ForeColor = Color.FromArgb(153, 170, 181);
-            connLabel.Location = new Point(397, 250);
-            connLabel.Name = "connLabel";
-            connLabel.Size = new Size(168, 20);
-            connLabel.TabIndex = 23;
-            connLabel.Text = "Connected Server: None";
             // 
             // ManualCommand
             // 

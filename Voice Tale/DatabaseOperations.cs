@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Text.RegularExpressions;
 
 namespace Voice_Tale
 {
@@ -397,7 +398,7 @@ namespace Voice_Tale
             }
 
             // Check if the command already exists
-            if (File.ReadAllLines(filePath).Any(line => line.StartsWith(commandName + "(")))
+            if (File.ReadAllLines(filePath).Any(line => line.ToLower().StartsWith(commandName.ToLower() + "(")))
             {
                 MessageBox.Show("Command already exists!\nDelete the command from the file to overwrite!");
                 return false; // Command already exists, don't save
@@ -412,17 +413,129 @@ namespace Voice_Tale
             // Append the new command to the file
             File.AppendAllText(filePath, commandLine + Environment.NewLine);
 
-            MessageBox.Show("Command {commandName} created successfully!");
+            MessageBox.Show($"Command {commandName} created successfully!");
 
             return true; // Command saved successfully
+
+
         }
 
 
+        public bool DeleteCommand(string commandName)
+        {
+            string filePath = GetFilePath("commands.txt");
+
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Commands file not found.");
+                return false;
+            }
+
+            string[] lines = File.ReadAllLines(filePath);
+            List<string> updatedLines = new List<string>();
+            bool commandFound = false;
+
+            foreach (string line in lines)
+            {
+                if (!line.StartsWith(commandName + "("))
+                {
+                    updatedLines.Add(line);
+                }
+                else
+                {
+                    commandFound = true;
+                }
+            }
+
+            if (!commandFound)
+            {
+                MessageBox.Show($"Command '{commandName}' not found.");
+                return false;
+            }
+
+            File.WriteAllLines(filePath, updatedLines);
+            MessageBox.Show($"Command '{commandName}' deleted successfully.");
+            return true;
+        }
 
 
+        private const string VARIABLES_FILE = "variables.txt";
 
+        // Save a variable to the variables file
+        public void SaveVariable(string name, string value)
+        {
+            string filePath = GetFilePath(VARIABLES_FILE);
+            string variableLine = $"{name}={value}";
 
-        // Gets a command by its name
+            // Read existing lines
+            List<string> lines = File.Exists(filePath) ? File.ReadAllLines(filePath).ToList() : new List<string>();
+
+            // Update existing variable or add new one
+            int existingIndex = lines.FindIndex(line => line.StartsWith(name + "="));
+            if (existingIndex != -1)
+            {
+                lines[existingIndex] = variableLine;
+            }
+            else
+            {
+                lines.Add(variableLine);
+            }
+
+            // Write all lines back to the file
+            File.WriteAllLines(filePath, lines);
+        }
+
+        // Load all variables from the variables file
+        public Dictionary<string, string> LoadVariables()
+        {
+            string filePath = GetFilePath(VARIABLES_FILE);
+            Dictionary<string, string> variables = new Dictionary<string, string>();
+
+            if (File.Exists(filePath))
+            {
+                foreach (string line in File.ReadAllLines(filePath))
+                {
+                    string[] parts = line.Split(new[] { '=' }, 2);
+                    if (parts.Length == 2)
+                    {
+                        variables[parts[0]] = parts[1];
+                    }
+                }
+            }
+
+            return variables;
+        }
+
+        // Get a specific variable value
+        public string GetVariableValue(string name)
+        {
+            var variables = LoadVariables();
+            return variables.TryGetValue(name, out string value) ? value : null;
+        }
+
+        // Delete a variable
+        public void DeleteVariable(string name)
+        {
+            string filePath = GetFilePath(VARIABLES_FILE);
+            if (File.Exists(filePath))
+            {
+                var lines = File.ReadAllLines(filePath).Where(line => !line.StartsWith(name + "="));
+                File.WriteAllLines(filePath, lines);
+            }
+        }
+
+        // Replace variables in a command string
+        public string ReplaceVariablesInCommand(string command)
+        {
+            var variables = LoadVariables();
+            return Regex.Replace(command, @"\{(\w+)\}", match =>
+            {
+                string varName = match.Groups[1].Value;
+                return variables.TryGetValue(varName, out string value) ? value : match.Value;
+            });
+        }
+
+        // Modified GetCommandByName to replace variables
         public List<string> GetCommandByName(string commandName)
         {
             string filePath = GetFilePath("commands.txt");
@@ -435,12 +548,38 @@ namespace Voice_Tale
                     int startIndex = line.IndexOf('(') + 1;
                     int endIndex = line.LastIndexOf(')');
                     string commandsString = line.Substring(startIndex, endIndex - startIndex);
-                    return commandsString.Split(',').ToList();
+
+                    // Split the commands, but preserve variables in {var} format
+                    List<string> commands = new List<string>();
+                    int lastIndex = 0;
+                    bool inVariable = false;
+                    for (int i = 0; i < commandsString.Length; i++)
+                    {
+                        if (commandsString[i] == '{')
+                        {
+                            inVariable = true;
+                        }
+                        else if (commandsString[i] == '}')
+                        {
+                            inVariable = false;
+                        }
+                        else if (commandsString[i] == ',' && !inVariable)
+                        {
+                            commands.Add(ReplaceVariablesInCommand(commandsString.Substring(lastIndex, i - lastIndex).Trim()));
+                            lastIndex = i + 1;
+                        }
+                    }
+                    commands.Add(ReplaceVariablesInCommand(commandsString.Substring(lastIndex).Trim()));
+
+                    return commands;
                 }
             }
 
             return new List<string>(); // Return empty list if command not found
         }
+
+
+
 
         // Gets all command names
         public List<string> GetAllCommandNames()

@@ -184,7 +184,7 @@ namespace Voice_Tale.Welcome
             OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
         }
 
-        private void Login_Click_1(object sender, EventArgs e)
+        private async void Login_Click_1(object sender, EventArgs e)
         {
             var specName = dbop.GetName();
 

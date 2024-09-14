@@ -144,7 +144,7 @@ namespace Voice_Tale.Main.Voice_Commands
                 return;
             }
 
-            
+
 
 
 
@@ -301,6 +301,12 @@ namespace Voice_Tale.Main.Voice_Commands
         private void mainPanel_Paint_2(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void File_Click_1(object sender, EventArgs e)
+        {
+            FileEditor f = new FileEditor();
+            f.ShowDialog();
         }
     }
 }

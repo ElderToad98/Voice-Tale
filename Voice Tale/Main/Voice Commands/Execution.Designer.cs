@@ -57,6 +57,7 @@
             File.SizeMode = PictureBoxSizeMode.Zoom;
             File.TabIndex = 17;
             File.TabStop = false;
+            File.Click += File_Click_1;
             // 
             // infoButton
             // 

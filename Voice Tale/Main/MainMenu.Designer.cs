@@ -29,6 +29,7 @@
             commandCreateButton = new Button();
             commandExecuteButton = new Button();
             manualCommandButton = new Button();
+            button1 = new Button();
             sidePanel.SuspendLayout();
             topPanel.SuspendLayout();
             SuspendLayout();
@@ -183,12 +184,31 @@
             manualCommandButton.UseVisualStyleBackColor = false;
             manualCommandButton.Click += manualCommandButton_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(114, 137, 218);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Location = new Point(470, 334);
+            button1.Name = "button1";
+            button1.Size = new Size(320, 200);
+            button1.TabIndex = 15;
+            button1.Text = "Variable Creation";
+            button1.TextAlign = ContentAlignment.BottomCenter;
+            button1.TextImageRelation = TextImageRelation.ImageAboveText;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click_1;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(54, 57, 63);
             ClientSize = new Size(1184, 600);
+            Controls.Add(button1);
             Controls.Add(manualCommandButton);
             Controls.Add(commandExecuteButton);
             Controls.Add(commandCreateButton);
@@ -217,5 +237,6 @@
         private Label titleLabel;
         private Button commandExecuteButton;
         private Button manualCommandButton;
+        private Button button1;
     }
 }

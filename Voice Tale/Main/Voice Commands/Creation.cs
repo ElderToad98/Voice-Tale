@@ -1,83 +1,134 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 using Voice_Tale.Main.Voice_Commands.Text_Editor;
-using Voice_Tale.Properties;
 
 namespace Voice_Tale.Main.Voice_Commands
 {
-
     public partial class Creation : Form
     {
-        DatabaseOperations dbop;
+        private readonly DatabaseOperations _dbOps;
+
         public Creation()
         {
             InitializeComponent();
-
-            dbop = new DatabaseOperations();
-        }
-
-
-        // This gets the file of the commands txt file
-        private void File_Click(object sender, EventArgs e)
-        {
-            FileEditor f = new FileEditor();
-            f.ShowDialog();
-
-        }
-
-
-        // This saves the command entered
-        private void Save_Click(object sender, EventArgs e)
-        {
-
-
-
-            if (Commands.Text.Length == 0)
-            {
-                MessageBox.Show("Please put both a command name and the commands!");
-            }
-
-            if (Commands.Text.Length == 0)
-            {
-                MessageBox.Show("Please enter your command(s)!");
-                return;
-            }
-
-            if (CommandName.Text.Length == 0 || CommandName.Text.Length >= 30)
-            {
-                MessageBox.Show("Please enter a valid command name!");
-                return;
-            }
-
-            string filePath = dbop.GetFilePath("commands.txt");
-
-            var commands = Commands.Text;
-            var name = CommandName.Text;
-
-            dbop.SaveCommand(name, commands);
-
-            MessageBox.Show($"Added Command '{name}'!");
+            _dbOps = new DatabaseOperations();
         }
 
         private void Creation_Load(object sender, EventArgs e)
         {
-
+            RefreshCommandList();
         }
 
+        private void RefreshCommandList()
+        {
+            // Assuming you want to add a ComboBox to show existing commands
+            CommandList.Items.Clear();
+            var commands = _dbOps.GetAllCommandNames();
+            CommandList.Items.AddRange(commands.ToArray());
+        }
 
-        // Info box
+        private void Save_Click(object sender, EventArgs e)
+        {
+            string commandName = CommandName.Text.Trim();
+            string commands = Commands.Text.Trim();
+
+            if (string.IsNullOrEmpty(commandName))
+            {
+                MessageBox.Show("Please enter a valid command name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(commands))
+            {
+                MessageBox.Show("Please enter your command(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (commandName.Length >= 30)
+            {
+                MessageBox.Show("Command name must be less than 30 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                bool success = _dbOps.SaveCommand(commandName, commands);
+                if (success)
+                {
+                    MessageBox.Show($"Command '{commandName}' saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RefreshCommandList();
+                    ClearInputFields();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            if (CommandList.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a command to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string commandName = CommandList.SelectedItem.ToString();
+            if (MessageBox.Show($"Are you sure you want to delete the command '{commandName}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    _dbOps.DeleteCommand(commandName);
+                    MessageBox.Show($"Command '{commandName}' deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RefreshCommandList();
+                    ClearInputFields();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting command: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void CommandList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CommandList.SelectedItem != null)
+            {
+                string commandName = CommandList.SelectedItem.ToString();
+                List<string> commandStrings = _dbOps.GetCommandByName(commandName);
+                if (commandStrings.Any())
+                {
+                    CommandName.Text = commandName;
+                    Commands.Text = string.Join(",", commandStrings);
+                }
+            }
+        }
+
+        private void ClearInputFields()
+        {
+            CommandName.Clear();
+            Commands.Clear();
+            CommandList.SelectedIndex = -1;
+        }
+
+        private void File_Click(object sender, EventArgs e)
+        {
+            FileEditor fileEditor = new FileEditor();
+            fileEditor.ShowDialog();
+        }
+
         private void Info_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Hey {dbop.GetName()}!\nWelcome to the Command Creation Area!\n\nThis area is made for creating custom voice commands!\nThis is an early version of what it will be!\n\nClick the file icon to open the txt file containing your commands for easy command sharing between your friends!");
+            string userName = _dbOps.GetName();
+            MessageBox.Show($"Hey {userName}!\n\nWelcome to the Command Creation Area!\n\n" +
+                            "This area is made for creating custom voice commands.\n" +
+                            "- To add a new command, enter the name and commands, then click 'Save'.\n" +
+                            "- To edit an existing command, select it from the list, modify it, then click 'Save'.\n" +
+                            "- To delete a command, select it from the list and click 'Delete'.\n" +
+                            "- Click the file icon to open the txt file containing your commands for easy sharing.",
+                            "Command Creation Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

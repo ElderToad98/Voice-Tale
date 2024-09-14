@@ -1,6 +1,6 @@
 ﻿namespace Voice_Tale.Main.Voice_Commands
 {
-    partial class Creation
+    partial class variables
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -15,21 +15,21 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Creation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(variables));
             panel1 = new Panel();
             File = new PictureBox();
             Info = new PictureBox();
             mainPanel = new Panel();
             DeleteButton = new Button();
-            CommandList = new ComboBox();
-            CommandListLabel = new Label();
+            VariableList = new ComboBox();
+            VariableListLabel = new Label();
             label3 = new Label();
             label2 = new Label();
             SaveButton = new Button();
-            Commands = new TextBox();
-            CommandsLabel = new Label();
-            CommandName = new TextBox();
-            CommandNameLabel = new Label();
+            VariableValue = new TextBox();
+            VariableValueLabel = new Label();
+            VariableName = new TextBox();
+            VariableNameLabel = new Label();
             TitleLabel = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)File).BeginInit();
@@ -76,15 +76,15 @@
             // 
             mainPanel.BackColor = Color.FromArgb(35, 39, 42);
             mainPanel.Controls.Add(DeleteButton);
-            mainPanel.Controls.Add(CommandList);
-            mainPanel.Controls.Add(CommandListLabel);
+            mainPanel.Controls.Add(VariableList);
+            mainPanel.Controls.Add(VariableListLabel);
             mainPanel.Controls.Add(label3);
             mainPanel.Controls.Add(label2);
             mainPanel.Controls.Add(SaveButton);
-            mainPanel.Controls.Add(Commands);
-            mainPanel.Controls.Add(CommandsLabel);
-            mainPanel.Controls.Add(CommandName);
-            mainPanel.Controls.Add(CommandNameLabel);
+            mainPanel.Controls.Add(VariableValue);
+            mainPanel.Controls.Add(VariableValueLabel);
+            mainPanel.Controls.Add(VariableName);
+            mainPanel.Controls.Add(VariableNameLabel);
             mainPanel.Controls.Add(TitleLabel);
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(80, 0);
@@ -102,33 +102,33 @@
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(180, 40);
             DeleteButton.TabIndex = 20;
-            DeleteButton.Text = "Delete Command";
+            DeleteButton.Text = "Delete Variable";
             DeleteButton.UseVisualStyleBackColor = false;
-            DeleteButton.Click += Delete_Click;
+            DeleteButton.Click += DeleteButton_Click;
             // 
-            // CommandList
+            // VariableList
             // 
-            CommandList.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CommandList.BackColor = Color.FromArgb(64, 68, 75);
-            CommandList.DropDownStyle = ComboBoxStyle.DropDownList;
-            CommandList.FlatStyle = FlatStyle.Flat;
-            CommandList.ForeColor = Color.White;
-            CommandList.FormattingEnabled = true;
-            CommandList.Location = new Point(23, 324);
-            CommandList.Name = "CommandList";
-            CommandList.Size = new Size(768, 32);
-            CommandList.TabIndex = 19;
-            CommandList.SelectedIndexChanged += CommandList_SelectedIndexChanged;
+            VariableList.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            VariableList.BackColor = Color.FromArgb(64, 68, 75);
+            VariableList.DropDownStyle = ComboBoxStyle.DropDownList;
+            VariableList.FlatStyle = FlatStyle.Flat;
+            VariableList.ForeColor = Color.White;
+            VariableList.FormattingEnabled = true;
+            VariableList.Location = new Point(23, 324);
+            VariableList.Name = "VariableList";
+            VariableList.Size = new Size(768, 32);
+            VariableList.TabIndex = 19;
+            VariableList.SelectedIndexChanged += VariableList_SelectedIndexChanged;
             // 
-            // CommandListLabel
+            // VariableListLabel
             // 
-            CommandListLabel.AutoSize = true;
-            CommandListLabel.ForeColor = Color.FromArgb(153, 170, 181);
-            CommandListLabel.Location = new Point(23, 296);
-            CommandListLabel.Name = "CommandListLabel";
-            CommandListLabel.Size = new Size(169, 24);
-            CommandListLabel.TabIndex = 18;
-            CommandListLabel.Text = "Edit Command List";
+            VariableListLabel.AutoSize = true;
+            VariableListLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            VariableListLabel.Location = new Point(23, 296);
+            VariableListLabel.Name = "VariableListLabel";
+            VariableListLabel.Size = new Size(151, 24);
+            VariableListLabel.TabIndex = 18;
+            VariableListLabel.Text = "Edit Variable List";
             // 
             // label3
             // 
@@ -161,55 +161,55 @@
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(180, 40);
             SaveButton.TabIndex = 15;
-            SaveButton.Text = "Save Command";
+            SaveButton.Text = "Save Variable";
             SaveButton.UseVisualStyleBackColor = false;
-            SaveButton.Click += Save_Click;
+            SaveButton.Click += SaveButton_Click;
             // 
-            // Commands
+            // VariableValue
             // 
-            Commands.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Commands.BackColor = Color.FromArgb(64, 68, 75);
-            Commands.BorderStyle = BorderStyle.FixedSingle;
-            Commands.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Commands.ForeColor = Color.White;
-            Commands.Location = new Point(23, 234);
-            Commands.Name = "Commands";
-            Commands.PlaceholderText = "Enter your command(s)";
-            Commands.Size = new Size(768, 34);
-            Commands.TabIndex = 13;
+            VariableValue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            VariableValue.BackColor = Color.FromArgb(64, 68, 75);
+            VariableValue.BorderStyle = BorderStyle.FixedSingle;
+            VariableValue.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            VariableValue.ForeColor = Color.White;
+            VariableValue.Location = new Point(23, 234);
+            VariableValue.Name = "VariableValue";
+            VariableValue.PlaceholderText = "John Doe";
+            VariableValue.Size = new Size(768, 34);
+            VariableValue.TabIndex = 13;
             // 
-            // CommandsLabel
+            // VariableValueLabel
             // 
-            CommandsLabel.AutoSize = true;
-            CommandsLabel.ForeColor = Color.FromArgb(153, 170, 181);
-            CommandsLabel.Location = new Point(23, 206);
-            CommandsLabel.Name = "CommandsLabel";
-            CommandsLabel.Size = new Size(108, 24);
-            CommandsLabel.TabIndex = 14;
-            CommandsLabel.Text = "Commands";
+            VariableValueLabel.AutoSize = true;
+            VariableValueLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            VariableValueLabel.Location = new Point(23, 206);
+            VariableValueLabel.Name = "VariableValueLabel";
+            VariableValueLabel.Size = new Size(130, 24);
+            VariableValueLabel.TabIndex = 14;
+            VariableValueLabel.Text = "Variable Value";
             // 
-            // CommandName
+            // VariableName
             // 
-            CommandName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CommandName.BackColor = Color.FromArgb(64, 68, 75);
-            CommandName.BorderStyle = BorderStyle.FixedSingle;
-            CommandName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CommandName.ForeColor = Color.White;
-            CommandName.Location = new Point(23, 144);
-            CommandName.Name = "CommandName";
-            CommandName.PlaceholderText = "Enter command name";
-            CommandName.Size = new Size(768, 34);
-            CommandName.TabIndex = 11;
+            VariableName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            VariableName.BackColor = Color.FromArgb(64, 68, 75);
+            VariableName.BorderStyle = BorderStyle.FixedSingle;
+            VariableName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            VariableName.ForeColor = Color.White;
+            VariableName.Location = new Point(23, 144);
+            VariableName.Name = "VariableName";
+            VariableName.PlaceholderText = "name";
+            VariableName.Size = new Size(768, 34);
+            VariableName.TabIndex = 11;
             // 
-            // CommandNameLabel
+            // VariableNameLabel
             // 
-            CommandNameLabel.AutoSize = true;
-            CommandNameLabel.ForeColor = Color.FromArgb(153, 170, 181);
-            CommandNameLabel.Location = new Point(23, 116);
-            CommandNameLabel.Name = "CommandNameLabel";
-            CommandNameLabel.Size = new Size(155, 24);
-            CommandNameLabel.TabIndex = 12;
-            CommandNameLabel.Text = "Command Name";
+            VariableNameLabel.AutoSize = true;
+            VariableNameLabel.ForeColor = Color.FromArgb(153, 170, 181);
+            VariableNameLabel.Location = new Point(23, 116);
+            VariableNameLabel.Name = "VariableNameLabel";
+            VariableNameLabel.Size = new Size(135, 24);
+            VariableNameLabel.TabIndex = 12;
+            VariableNameLabel.Text = "Variable Name";
             // 
             // TitleLabel
             // 
@@ -218,11 +218,11 @@
             TitleLabel.ForeColor = Color.FromArgb(114, 137, 218);
             TitleLabel.Location = new Point(23, 20);
             TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(410, 54);
+            TitleLabel.Size = new Size(358, 54);
             TitleLabel.TabIndex = 10;
-            TitleLabel.Text = "Command Creation";
+            TitleLabel.Text = "Manage Variables";
             // 
-            // Creation
+            // variables
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -232,9 +232,9 @@
             Font = new Font("Corbel", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.White;
             MinimumSize = new Size(800, 600);
-            Name = "Creation";
-            Text = "Voice Tale | Command Creation";
-            Load += Creation_Load;
+            Name = "variables";
+            Text = "Voice Tale | Variable Management";
+            Load += VariableSaving_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)File).EndInit();
             ((System.ComponentModel.ISupportInitialize)Info).EndInit();
@@ -248,15 +248,15 @@
         private PictureBox File;
         private Panel mainPanel;
         private Label TitleLabel;
-        private TextBox CommandName;
-        private Label CommandNameLabel;
-        private TextBox Commands;
-        private Label CommandsLabel;
+        private TextBox VariableName;
+        private Label VariableNameLabel;
+        private TextBox VariableValue;
+        private Label VariableValueLabel;
         private Button SaveButton;
         private Label label2;
         private Label label3;
-        private ComboBox CommandList;
-        private Label CommandListLabel;
+        private ComboBox VariableList;
+        private Label VariableListLabel;
         private Button DeleteButton;
     }
 }
