@@ -288,7 +288,7 @@ namespace Voice_Tale
 
             return passwordHash;
         }
-        
+
         public void ChangeUsernamePassword(string newUsername, string newPassword, string newPasswordHash)
         {
 
@@ -319,14 +319,14 @@ namespace Voice_Tale
             {
                 conn.Open();
 
-    
+
                 string updateSql = "UPDATE Users SET Name = @Name WHERE ID = (SELECT ID FROM Users LIMIT 1)";
                 using (SQLiteCommand updateCmd = new SQLiteCommand(updateSql, conn))
                 {
                     updateCmd.Parameters.AddWithValue("@Name", name);
                     int rowsAffected = updateCmd.ExecuteNonQuery();
 
-        
+
                     if (rowsAffected == 0)
                     {
                         string insertSql = "INSERT INTO Users (Name) VALUES (@Name)";
@@ -384,42 +384,82 @@ namespace Voice_Tale
         }
 
 
+        private Dictionary<string, string> GenerateDynamicCommands(string commandNameTemplate, string commandStringTemplate)
+        {
+            Dictionary<string, string> generatedCommands = new Dictionary<string, string>();
+
+
+            var match = Regex.Match(commandNameTemplate, @"(.*)\{dynamicint\s+(\d+)\}(.*)");
+            if (match.Success && int.TryParse(match.Groups[2].Value, out int dynamicInt))
+            {
+   
+                string baseCommandName = match.Groups[1].Value.Trim() + " {0} " + match.Groups[3].Value.Trim();
+
+                for (int i = 1; i <= Math.Min(dynamicInt, 1000); i++)
+                {
+                    
+                    string newCommandName = string.Format(baseCommandName, i).Trim();
+
+                    
+                    string newCommandString = commandStringTemplate.Replace("{dynamicint}", $"{i}");
+
+                    generatedCommands[newCommandName] = newCommandString;
+                }
+            }
+
+            return generatedCommands;
+        }
+
+
+        // Helper method to extract the dynamic int value
+        private int ExtractDynamicInt(string input)
+        {
+            var match = Regex.Match(input, @"\{dynamicint\s+(\d+)\}");
+            if (match.Success && int.TryParse(match.Groups[1].Value, out int result))
+            {
+                return result;
+            }
+            return 0;
+        }
+
 
 
         public bool SaveCommand(string commandName, string commandString)
         {
             string filePath = GetFilePath("commands.txt");
 
-            // Check if the command name or command string contains '(' or ')'
+            // Check for invalid characters
             if (commandName.Contains('(') || commandName.Contains(')') || commandString.Contains('(') || commandString.Contains(')'))
             {
                 MessageBox.Show("Command name or command string cannot contain '(' or ')'.");
-                return false; // Invalid characters found, don't save
+                return false;
             }
 
-            // Check if the command already exists
-            if (File.ReadAllLines(filePath).Any(line => line.ToLower().StartsWith(commandName.ToLower() + "(")))
+            // Handle dynamic command generation
+            if (commandName.Contains("{dynamicint"))
             {
-                MessageBox.Show("Command already exists!\nDelete the command from the file to overwrite!");
-                return false; // Command already exists, don't save
+                var generatedCommands = GenerateDynamicCommands(commandName, commandString);
+                foreach (var cmd in generatedCommands)
+                {
+                    string commandLine = $"{cmd.Key}({cmd.Value})";
+                    File.AppendAllText(filePath, commandLine + Environment.NewLine);
+                }
+            }
+            else
+            {
+                // Original command saving logic
+                if (File.ReadAllLines(filePath).Any(line => line.ToLower().StartsWith(commandName.ToLower() + "(")))
+                {
+                    MessageBox.Show("Command already exists!\nDelete the command from the file to overwrite!");
+                    return false;
+                }
+                string commandLine = $"{commandName}({commandString})";
+                File.AppendAllText(filePath, commandLine + Environment.NewLine);
             }
 
-            // Split the string into individual commands based on commas
-            List<string> commands = commandString.Split(',').Select(cmd => cmd.Trim()).ToList();
-
-            // Format the command line
-            string commandLine = $"{commandName}({string.Join(",", commands)})";
-
-            // Append the new command to the file
-            File.AppendAllText(filePath, commandLine + Environment.NewLine);
-
-            MessageBox.Show($"Command {commandName} created successfully!");
-
-            return true; // Command saved successfully
-
-
+            MessageBox.Show($"Command(s) created successfully!");
+            return true;
         }
-
 
         public bool DeleteCommand(string commandName)
         {
@@ -535,51 +575,54 @@ namespace Voice_Tale
             });
         }
 
-        // Modified GetCommandByName to replace variables
         public List<string> GetCommandByName(string commandName)
         {
             string filePath = GetFilePath("commands.txt");
             string[] lines = File.ReadAllLines(filePath);
 
+            string processedCommandName = ReplaceVariablesInCommand(commandName);
+
             foreach (string line in lines)
             {
-                if (line.StartsWith(commandName + "("))
+                if (line.StartsWith(processedCommandName + "("))
                 {
                     int startIndex = line.IndexOf('(') + 1;
                     int endIndex = line.LastIndexOf(')');
-                    string commandsString = line.Substring(startIndex, endIndex - startIndex);
+                    string commandString = line.Substring(startIndex, endIndex - startIndex);
 
-                    // Split the commands, but preserve variables in {var} format
-                    List<string> commands = new List<string>();
-                    int lastIndex = 0;
-                    bool inVariable = false;
-                    for (int i = 0; i < commandsString.Length; i++)
-                    {
-                        if (commandsString[i] == '{')
-                        {
-                            inVariable = true;
-                        }
-                        else if (commandsString[i] == '}')
-                        {
-                            inVariable = false;
-                        }
-                        else if (commandsString[i] == ',' && !inVariable)
-                        {
-                            commands.Add(ReplaceVariablesInCommand(commandsString.Substring(lastIndex, i - lastIndex).Trim()));
-                            lastIndex = i + 1;
-                        }
-                    }
-                    commands.Add(ReplaceVariablesInCommand(commandsString.Substring(lastIndex).Trim()));
-
-                    return commands;
+                    // Return as a single-item list for consistency with the existing method signature
+                    return new List<string> { ReplaceVariablesInCommand(commandString) };
                 }
             }
 
-            return new List<string>(); // Return empty list if command not found
+            return new List<string>();
         }
 
 
-
+        private List<string> SplitCommands(string commandsString)
+        {
+            List<string> commands = new List<string>();
+            int lastIndex = 0;
+            bool inVariable = false;
+            for (int i = 0; i < commandsString.Length; i++)
+            {
+                if (commandsString[i] == '{')
+                {
+                    inVariable = true;
+                }
+                else if (commandsString[i] == '}')
+                {
+                    inVariable = false;
+                }
+                else if (commandsString[i] == ',' && !inVariable)
+                {
+                    commands.Add(commandsString.Substring(lastIndex, i - lastIndex).Trim());
+                    lastIndex = i + 1;
+                }
+            }
+            commands.Add(commandsString.Substring(lastIndex).Trim());
+            return commands;
+        }
 
         // Gets all command names
         public List<string> GetAllCommandNames()

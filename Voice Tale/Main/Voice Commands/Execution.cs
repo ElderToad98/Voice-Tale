@@ -49,39 +49,31 @@ namespace Voice_Tale.Main.Voice_Commands
 
         private async void InitializeSpeechRecognition()
         {
-
             recognizer = new SpeechRecognitionEngine();
-
             // Loads grammar
             var commands = new Choices();
-
             var rawCommands = dbop.GetAllCommandNames();
-
             if (rawCommands.Count == 0)
             {
                 MessageBox.Show("No commands found. Please add at least one command before initializing speech recognition.");
                 return;
             }
-
             foreach (var rawCommand in rawCommands)
             {
                 commands.Add(rawCommand);
-                commandList.Items.Add(rawCommand);
+                if (!commandList.Items.Contains(rawCommand))
+                {
+                    commandList.Items.Add(rawCommand);
+                }
             }
-
             var grammarBuilder = new GrammarBuilder();
             grammarBuilder.Append(commands);
             var grammar = new Grammar(grammarBuilder);
             recognizer.LoadGrammar(grammar);
-
-
-
             // Event handlers
             recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
-
             // Configures input
             recognizer.SetInputToDefaultAudioDevice();
-
             // Continuous recognition
             recognizer.RecognizeAsync(RecognizeMode.Multiple);
             await ConnectToServerAsync();
@@ -105,6 +97,7 @@ namespace Voice_Tale.Main.Voice_Commands
                 {
                     try
                     {
+                        MessageBox.Show(cmd);
                         await consoleClient.RunCommandAsync(cmd);
                     }
                     catch (Exception ex)

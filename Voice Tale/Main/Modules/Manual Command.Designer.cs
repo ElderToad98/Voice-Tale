@@ -19,13 +19,13 @@
         {
             tableLayoutPanel1 = new TableLayoutPanel();
             connLabel = new Label();
-            label1 = new Label();
             label2 = new Label();
             Command = new TextBox();
             checkBoxPanel = new TableLayoutPanel();
             Clear = new CheckBox();
             ShowJson = new CheckBox();
             Send = new Button();
+            label1 = new Label();
             panel1 = new Panel();
             tableLayoutPanel1.SuspendLayout();
             checkBoxPanel.SuspendLayout();
@@ -70,17 +70,6 @@
             connLabel.TabIndex = 23;
             connLabel.Text = "Connected Server: None";
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            label1.ForeColor = Color.FromArgb(114, 137, 218);
-            label1.Location = new Point(23, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(374, 62);
-            label1.TabIndex = 12;
-            label1.Text = "Send Command";
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -118,6 +107,7 @@
             checkBoxPanel.Name = "checkBoxPanel";
             checkBoxPanel.RowCount = 1;
             checkBoxPanel.RowStyles.Add(new RowStyle());
+            checkBoxPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             checkBoxPanel.Size = new Size(542, 38);
             checkBoxPanel.TabIndex = 22;
             // 
@@ -160,6 +150,17 @@
             Send.Text = "Send Command";
             Send.UseVisualStyleBackColor = false;
             Send.Click += Send_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(114, 137, 218);
+            label1.Location = new Point(23, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(374, 62);
+            label1.TabIndex = 12;
+            label1.Text = "Send Command";
             // 
             // panel1
             // 

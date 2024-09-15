@@ -45,9 +45,9 @@ namespace Voice_Tale.Main.Voice_Commands
                 return;
             }
 
-            if (commandName.Length >= 30)
+            if (commandName.Length >= 100)
             {
-                MessageBox.Show("Command name must be less than 30 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Command name must be less than 100 characters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
