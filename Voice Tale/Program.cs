@@ -1,18 +1,21 @@
+using DiscordRPC;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Voice_Tale.Main.Modules;
+using Voice_Tale.Main.Voice_Commands;
+using Voice_Tale.Main;
 using Voice_Tale.Properties;
 
 namespace Voice_Tale
 {
-
-    
     static class Program
     {
         [DllImport("Shcore.dll")]
         static extern int SetProcessDpiAwareness(int PROCESS_DPI_AWARENESS);
+        private static DiscordRpcClient client;
+        private static MiscOperations mop;
 
-        // According to https://msdn.microsoft.com/en-us/library/windows/desktop/dn280512(v=vs.85).aspx
         private enum DpiAwareness
         {
             None = 0,
@@ -20,9 +23,6 @@ namespace Voice_Tale
             PerMonitorAware = 2
         }
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -32,14 +32,56 @@ namespace Voice_Tale
             SetProcessDpiAwareness((int)DpiAwareness.PerMonitorAware);
             dbop.InitializeDatabase();
 
+            mop = new MiscOperations(); 
+
             if (string.IsNullOrEmpty(dbop.GetName()) || !dbop.IsInitCompleted())
             {
                 Application.Run(new WelcomeForm());
             }
             else
             {
-                Application.Run(new MainMenu());
+                Application.AddMessageFilter(new KeyMessageFilter(mop));
+                Application.Run(new MainMenu(mop)); 
             }
         }
+
+ 
     }
+
+    public class KeyMessageFilter : IMessageFilter
+    {
+        private const int WM_KEYDOWN = 0x0100;
+        private readonly MiscOperations mop;
+
+        public KeyMessageFilter(MiscOperations mop)
+        {
+            this.mop = mop ?? throw new ArgumentNullException(nameof(mop));
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == WM_KEYDOWN && Control.ModifierKeys == Keys.Control)
+            {
+                try
+                {
+                    switch ((Keys)m.WParam)
+                    {
+                        case Keys.M: mop.OpenForm<ManualCommand>(); return true;
+                        case Keys.V: mop.OpenForm<variables>(); return true;
+                        case Keys.E: mop.OpenForm<Execution>(); return true;
+                        case Keys.C: mop.OpenForm<Creation>(); return true;
+                        case Keys.S: mop.OpenForm<Settings>(); return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+
 }

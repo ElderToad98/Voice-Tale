@@ -13,6 +13,7 @@
     <PackageReference Include="BogaNet.BadWordFilter" Version="1.4.0" />
     <PackageReference Include="Bogus" Version="35.6.0" />
     <PackageReference Include="Censored" Version="2.0.0.21-beta" />
+    <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
     <PackageReference Include="Profanity.Detector" Version="0.1.8" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Speech" Version="9.0.0-preview.7.24405.7" />

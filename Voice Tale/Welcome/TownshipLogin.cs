@@ -91,8 +91,7 @@ namespace Voice_Tale.Welcome
 
                 MessageBox.Show($"Successfully logged in as {username}!\n\nThis window will now close. Please reopen the exe file to get started!");
 
-                MainMenu main = new MainMenu(); // Opens the main menu
-                main.Show();
+           
 
                 this.Close();
             }
@@ -178,7 +177,7 @@ namespace Voice_Tale.Welcome
         }
 
 
-        // Will give link to the github repo, eventually
+   
         private void Github_Click(object sender, EventArgs e)
         {
             OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
@@ -240,8 +239,7 @@ namespace Voice_Tale.Welcome
 
                 MessageBox.Show($"Successfully logged in as {username}!\n\nThis window will now close. Please reopen the exe file to get started!");
 
-                MainMenu main = new MainMenu(); // Opens the main menu
-                main.Show();
+               
 
                 this.Close();
             }

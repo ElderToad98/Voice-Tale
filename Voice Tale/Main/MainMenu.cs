@@ -4,6 +4,10 @@ using System.Windows.Forms;
 using Voice_Tale.Main;
 using Voice_Tale.Main.Modules;
 using Voice_Tale.Main.Voice_Commands;
+using DiscordRPC;
+using DiscordRPC.Logging;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Voice_Tale
 {
@@ -12,14 +16,18 @@ namespace Voice_Tale
         private readonly DatabaseOperations dbop;
         private readonly string specifiedName;
         private readonly MiscOperations op;
+        private static DiscordRpcClient client;
 
-        public MainMenu()
+        public MainMenu(MiscOperations op)
         {
+            this.op = op ?? throw new ArgumentNullException(nameof(op));
             InitializeComponent();
+
             dbop = new DatabaseOperations();
             specifiedName = dbop.GetName();
-            op = new MiscOperations();
         }
+
+
 
         // Main Info Button
         private void MainInfo_Click(object sender, EventArgs e)
@@ -112,6 +120,70 @@ namespace Voice_Tale
 
         }
 
-        
+
+
+
+        private async void MainMenu_Load(object sender, EventArgs e)
+        {
+            await op.RPCInit();
+            await UpdateRPC();
+        }
+
+        private async Task UpdateRPC()
+        {
+            while (true)
+            {
+                // Wait asynchronously for 5 seconds
+                await Task.Delay(5000);
+
+                
+
+                // Get the active form
+                var activeForm = Form.ActiveForm;
+                if (activeForm is null)
+                {
+                    op.ChangeDiscordRPC("Idling!");
+                    continue; // Exit the loop if no active form
+                }
+
+             
+                var formName = activeForm.Name;
+
+                
+                //MessageBox.Show($"Focused Form: {formName}");
+                var rpc = "";
+
+                switch (formName) 
+                {
+                    case ("MainMenu"):
+                        rpc = "In The Menu!";
+                        break;
+                    case ("Settings"):
+                        rpc = "Changing Settings!";
+                        break;
+                    case ("Execution"):
+                        rpc = "Executing Voice Commands!";
+                        break;
+                    case ("Creation"):
+                        rpc = "Creating Voice Commands!";
+                        break;
+                    case ("variables"):
+                        rpc = "Making Variables!";
+                        break;
+                    case ("ManualCommand"):
+                        rpc = "Executing Manual Commands!";
+                        break;
+                    default:
+                        rpc  = "Having Fun!";
+                        break;
+                }
+
+                //MessageBox.Show(rpc);
+                op.ChangeDiscordRPC(rpc);
+
+            }
+        }
+
+
     }
 }

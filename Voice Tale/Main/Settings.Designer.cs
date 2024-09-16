@@ -1,4 +1,8 @@
-﻿namespace Voice_Tale.Main
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Voice_Tale.Main
 {
     partial class Settings
     {
@@ -26,9 +30,10 @@
             checkBoxPanel = new TableLayoutPanel();
             Beep = new CheckBox();
             Speak = new CheckBox();
-            Save = new Button();
+            checkBox1 = new CheckBox();
             label1 = new Label();
             infoButton = new Button();
+            Save = new Button();
             panel1 = new Panel();
             tableLayoutPanel1.SuspendLayout();
             checkBoxPanel.SuspendLayout();
@@ -43,9 +48,9 @@
             tableLayoutPanel1.Controls.Add(label2, 0, 3);
             tableLayoutPanel1.Controls.Add(Confidence, 0, 4);
             tableLayoutPanel1.Controls.Add(checkBoxPanel, 0, 5);
-            tableLayoutPanel1.Controls.Add(Save, 0, 6);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(infoButton, 0, 7);
+            tableLayoutPanel1.Controls.Add(Save, 0, 6);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(10, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -119,11 +124,13 @@
             checkBoxPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             checkBoxPanel.Controls.Add(Beep, 0, 0);
             checkBoxPanel.Controls.Add(Speak, 1, 0);
+            checkBoxPanel.Controls.Add(checkBox1, 0, 1);
             checkBoxPanel.Location = new Point(23, 221);
             checkBoxPanel.Name = "checkBoxPanel";
-            checkBoxPanel.RowCount = 1;
+            checkBoxPanel.RowCount = 2;
             checkBoxPanel.RowStyles.Add(new RowStyle());
-            checkBoxPanel.Size = new Size(542, 38);
+            checkBoxPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            checkBoxPanel.Size = new Size(542, 58);
             checkBoxPanel.TabIndex = 22;
             // 
             // Beep
@@ -150,21 +157,17 @@
             Speak.Text = "TTS on Speech Recognized";
             Speak.UseVisualStyleBackColor = true;
             // 
-            // Save
+            // checkBox1
             // 
-            Save.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            Save.BackColor = Color.FromArgb(114, 137, 218);
-            Save.FlatAppearance.BorderSize = 0;
-            Save.FlatStyle = FlatStyle.Flat;
-            Save.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            Save.ForeColor = Color.White;
-            Save.Location = new Point(23, 265);
-            Save.Name = "Save";
-            Save.Size = new Size(542, 50);
-            Save.TabIndex = 13;
-            Save.Text = "Save Changes";
-            Save.UseVisualStyleBackColor = false;
-            Save.Click += Save_Click;
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI", 12F);
+            checkBox1.ForeColor = Color.White;
+            checkBox1.Location = new Point(3, 41);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(265, 14);
+            checkBox1.TabIndex = 21;
+            checkBox1.Text = "Beep on Speech Recognized";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -180,16 +183,31 @@
             // infoButton
             // 
             infoButton.BackColor = Color.Transparent;
-            infoButton.Cursor = Cursors.Default;
             infoButton.FlatAppearance.BorderSize = 0;
             infoButton.FlatStyle = FlatStyle.Flat;
             infoButton.Image = (Image)resources.GetObject("infoButton.Image");
-            infoButton.Location = new Point(23, 321);
+            infoButton.Location = new Point(23, 337);
             infoButton.Name = "infoButton";
             infoButton.Size = new Size(60, 60);
             infoButton.TabIndex = 23;
             infoButton.UseVisualStyleBackColor = false;
             infoButton.Click += infoButton_Click;
+            // 
+            // Save
+            // 
+            Save.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Save.BackColor = Color.FromArgb(114, 137, 218);
+            Save.FlatAppearance.BorderSize = 0;
+            Save.FlatStyle = FlatStyle.Flat;
+            Save.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            Save.ForeColor = Color.White;
+            Save.Location = new Point(23, 285);
+            Save.Name = "Save";
+            Save.Size = new Size(542, 46);
+            Save.TabIndex = 13;
+            Save.Text = "Save Changes";
+            Save.UseVisualStyleBackColor = false;
+            Save.Click += Save_Click;
             // 
             // panel1
             // 
@@ -229,10 +247,11 @@
         private TextBox Confidence;
         private Label label2;
         private Panel panel1;
-        private CheckBox Beep;
         private CheckBox Speak;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel checkBoxPanel;
         private Button infoButton;
+        private CheckBox checkBox1;
+        private CheckBox Beep;
     }
 }

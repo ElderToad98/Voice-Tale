@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DiscordRPC;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -7,13 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.AxHost;
 
 namespace Voice_Tale
 {
-    internal class MiscOperations
+    public class MiscOperations
     {
 
         // Api Response for Request Console Client
+        private DiscordRpcClient client;
+        private DateTime startTime;
+        private string currentState; // To track the current state
+
         private class ApiResponse
         {
             [JsonProperty("message")]
@@ -80,6 +86,72 @@ namespace Voice_Tale
             // If the form is not open, create and show a new instance
             T form = new T();
             form.Show();
+        }
+
+        public Task RPCInit()
+        {
+
+
+            if (client == null)
+            {
+                client = new DiscordRpcClient("1285051845496012931");
+                client.Initialize();
+            }
+
+            
+            client.SetPresence(new RichPresence()
+            {
+                Details = "Township Tale Voice Commands",
+                State = "Just got in!",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "yap",
+                },
+                Buttons = new[]
+                {
+                    new DiscordRPC.Button() { Label = "GitHub Repo", Url = "https://github.com/ElderToad98/Voice-Tale" },
+                    new DiscordRPC.Button() { Label = "Discord", Url = "https://discord.gg/x2uTrdPvsK" }
+                },
+
+                Timestamps = Timestamps.Now 
+            });
+
+          
+            currentState = "Just got in!";
+
+            return Task.CompletedTask;
+        }
+
+        public void ChangeDiscordRPC(string newState)
+        {
+            if (client != null)
+            {
+                if (currentState != newState)
+                {
+                    client.SetPresence(new RichPresence()
+                    {
+                        Details = "Township Tale Voice Commands",
+                        State = newState, 
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "yap",
+                        },
+                        Buttons = new[]
+                        {
+                            new DiscordRPC.Button() { Label = "GitHub Repo", Url = "https://github.com/ElderToad98/Voice-Tale" },
+                            new DiscordRPC.Button() { Label = "Discord", Url = "https://discord.gg/x2uTrdPvsK" }
+                        },
+                        Timestamps = Timestamps.Now // Resets the timer
+                    });
+
+                    // Updates the current state to the new state
+                    currentState = newState;
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Discord RPC client is not initialized.");
+            }
         }
 
 

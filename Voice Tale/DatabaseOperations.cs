@@ -25,7 +25,8 @@ namespace Voice_Tale
                              "ServerId INTEGER DEFAULT 1234, " +
                              "Confidence REAL DEFAULT 0.94, " +
                              "BeepOnCommand INTEGER DEFAULT 0, " +
-                             "SpeakOnCommand INTEGER DEFAULT 0)";
+                             "SpeakOnCommand INTEGER DEFAULT 0, " +
+                             "Presence INTEGER DEFAULT 0)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
@@ -105,6 +106,51 @@ namespace Voice_Tale
             return Confidence;
         }
 
+
+        public void ChangePresence(int newP)
+        {
+            string sql = "UPDATE Users SET Presence = @Presence WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Presence", newP);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+        // Gets Confidence
+        public int GetPresence()
+        {
+            int Confidence = 1; // Default value if no Confidence is found
+            string sql = "SELECT Presence FROM Users WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal("Presence")))
+                            {
+                                Confidence = reader.GetOrdinal("Presence");
+                            }
+                        }
+                    }
+                }
+            }
+
+            return Confidence;
+        }
 
         public void ChangeBeep(int beep)
         {
