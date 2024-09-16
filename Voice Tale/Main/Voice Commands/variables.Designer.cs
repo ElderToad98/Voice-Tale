@@ -219,6 +219,7 @@
             MinimumSize = new Size(800, 600);
             Name = "variables";
             Text = "Voice Tale | Variable Management";
+            WindowState = FormWindowState.Maximized;
             Load += VariableSaving_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Info).EndInit();

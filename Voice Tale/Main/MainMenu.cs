@@ -45,7 +45,8 @@ namespace Voice_Tale
 
 
 
-        private void Youtube_Click_1(object sender, EventArgs e) {
+        private void Youtube_Click_1(object sender, EventArgs e)
+        {
 
             if (MessageBox.Show($"Are you sure you want to open Youtube?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -99,11 +100,6 @@ namespace Voice_Tale
 
         }
 
-        private void MainMenu_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void manualCommandButton_Click(object sender, EventArgs e)
         {
 
@@ -115,7 +111,7 @@ namespace Voice_Tale
             op.OpenForm<variables>();
 
         }
-        
 
+        
     }
 }
