@@ -9,27 +9,33 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
 {
     public partial class FileEditor : Form
     {
-        private Stack<string> undoStack = new Stack<string>();
-        private Stack<string> redoStack = new Stack<string>();
+        private readonly Stack<string> undoStack = new Stack<string>();
+        private readonly Stack<string> redoStack = new Stack<string>();
         private bool isUndoRedo = false;
-        DatabaseOperations dbop;
+        private readonly DatabaseOperations dbop;
+        private readonly string filePath;
+        private System.Threading.Timer autoSaveTimer;
+        private bool isInitialLoad = true;
 
         public FileEditor()
         {
             InitializeComponent();
-            UpdateUndoRedoButtons();
             dbop = new DatabaseOperations();
+            filePath = dbop.GetFilePath("commands.txt");
+
+            this.Load += FileEditor_Load;
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void FileEditor_Load(object sender, EventArgs e)
         {
             await HandleLoadSavedFileAsync();
 
+            // Set up auto-save timer (every 30 seconds) after initial load
+            autoSaveTimer = new System.Threading.Timer(AutoSave, null, TimeSpan.FromSeconds(30), TimeSpan.FromSeconds(30));
         }
 
         private async Task HandleLoadSavedFileAsync()
         {
-            string filePath = dbop.GetFilePath("commands.txt");
             try
             {
                 if (File.Exists(filePath))
@@ -38,23 +44,26 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
                     MainBox.Text = fileContent;
                     undoStack.Push(fileContent);
                     UpdateUndoRedoButtons();
-
                     FileName.Text = Path.GetFileName(filePath);
                 }
                 else
                 {
-                    MessageBox.Show("Error occurred retrieving file.");
+                    MessageBox.Show("File not found. A new file will be created when you start typing.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
+                MessageBox.Show($"An error occurred while loading the file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                isInitialLoad = false;
             }
         }
 
         private async void MainBox_TextChanged(object sender, EventArgs e)
         {
-            if (!isUndoRedo)
+            if (!isUndoRedo && !isInitialLoad)
             {
                 undoStack.Push(MainBox.Text);
                 redoStack.Clear();
@@ -65,37 +74,38 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
 
         private async Task SaveFileContentAsync()
         {
-            string savePath = dbop.GetFilePath("commands.txt");
-            int maxRetries = 3;
+            int maxRetries = 5;
             int retryDelayMs = 100;
 
             for (int i = 0; i < maxRetries; i++)
             {
                 try
                 {
-                    using (FileStream fs = new FileStream(savePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        await sw.WriteAsync(MainBox.Text);
-                        return; // Successfully saved, exit the method
-                    }
+                    await File.WriteAllTextAsync(filePath, MainBox.Text);
+                    return; // Successfully saved, exit the method
                 }
-                catch (IOException ex) when (i < maxRetries - 1)
+                catch (IOException) when (i < maxRetries - 1)
                 {
                     // If it's not the last attempt, wait and then try again
-                    await Task.Delay(retryDelayMs);
+                    await Task.Delay(retryDelayMs * (i + 1)); // Exponential backoff
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred: {ex.Message}\n\nStack Trace: {ex.StackTrace}");
+                    MessageBox.Show($"An error occurred while saving: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit on any other exception
                 }
             }
 
-            MessageBox.Show("Unable to save the file after multiple attempts. The file may be in use by another process.");
+            MessageBox.Show("Unable to save the file after multiple attempts. The file may be in use by another process.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-
+        private void AutoSave(object state)
+        {
+            if (!IsDisposed && IsHandleCreated)
+            {
+                BeginInvoke(new Action(() => SaveFileContentAsync()));
+            }
+        }
 
         private void RedoButton_Click(object sender, EventArgs e)
         {
@@ -103,7 +113,7 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             {
                 isUndoRedo = true;
                 string redoText = redoStack.Pop();
-                undoStack.Push(redoText);
+                undoStack.Push(MainBox.Text);
                 MainBox.Text = redoText;
                 isUndoRedo = false;
             }
@@ -115,8 +125,8 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             if (undoStack.Count > 1)
             {
                 isUndoRedo = true;
-                string currentText = undoStack.Pop();
-                redoStack.Push(currentText);
+                redoStack.Push(MainBox.Text);
+                undoStack.Pop();
                 MainBox.Text = undoStack.Peek();
                 isUndoRedo = false;
             }
@@ -127,11 +137,6 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
         {
             UndoButton.Enabled = undoStack.Count > 1;
             RedoButton.Enabled = redoStack.Count > 0;
-        }
-
-        private void FileName_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -163,15 +168,17 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
 
                 MainBox.SelectionStart = foundIndex;
                 MainBox.SelectionLength = searchText.Length;
-                MainBox.SelectionBackColor = Color.Brown;
+                MainBox.SelectionBackColor = Color.Yellow;
 
                 index = foundIndex + searchText.Length;
             }
         }
 
-
-
-
-
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+          
+            autoSaveTimer?.Dispose();
+        }
     }
 }

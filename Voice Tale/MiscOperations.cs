@@ -64,5 +64,24 @@ namespace Voice_Tale
             return true;
 
         }
+
+        public void OpenForm<T>() where T : Form, new()
+        {
+            // Checks if the form is already open
+            foreach (Form openForm in Application.OpenForms)
+            {
+                if (openForm is T)
+                {
+                    openForm.Focus(); // Brings the existing form to the front
+                    return;
+                }
+            }
+
+            // If the form is not open, create and show a new instance
+            T form = new T();
+            form.Show();
+        }
+
+
     }
 }

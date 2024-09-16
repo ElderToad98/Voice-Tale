@@ -457,7 +457,7 @@ namespace Voice_Tale
                 File.AppendAllText(filePath, commandLine + Environment.NewLine);
             }
 
-            MessageBox.Show($"Command(s) created successfully!");
+            //MessageBox.Show($"Command(s) created successfully!");
             return true;
         }
 
@@ -494,7 +494,7 @@ namespace Voice_Tale
             }
 
             File.WriteAllLines(filePath, updatedLines);
-            MessageBox.Show($"Command '{commandName}' deleted successfully.");
+            //MessageBox.Show($"Command '{commandName}' deleted successfully.");
             return true;
         }
 

@@ -31,7 +31,7 @@ namespace Voice_Tale.Main.Voice_Commands
             string variableName = VariableName.Text.Trim();
             string variableValue = VariableValue.Text.Trim();
 
-            if (string.IsNullOrEmpty(variableName) || variableName.ToLower() == "dynamic int")
+            if (string.IsNullOrEmpty(variableName) || variableName.ToLower().Contains("dynamicint"))
             {
                 MessageBox.Show("Please enter a valid variable name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

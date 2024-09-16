@@ -118,8 +118,12 @@ namespace Voice_Tale
                 return;
             }
 
-            _dbOperations.SaveNameToDatabase(NameBox.Text);
-            OpenTownshipLogin();
+            if (MessageBox.Show($"Are you sure you want to be called '{NameBox.Text}'?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                _dbOperations.SaveNameToDatabase(NameBox.Text);
+                OpenTownshipLogin();
+            }
+          
         }
 
         private void OpenTownshipLogin()
@@ -140,11 +144,35 @@ namespace Voice_Tale
             }
         }
 
-        private void Discord_Click(object sender, EventArgs e) => OpenUrl("https://discord.gg/u7AVjUt2kZ");
+        private void Discord_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Are you sure you want to open Discord?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://discord.gg/u7AVjUt2kZ");
+            }
+        }
 
-        private void Youtube_Click(object sender, EventArgs e) => OpenUrl("https://www.youtube.com/@eldertoad98");
 
-        private void Github_Click(object sender, EventArgs e) => OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
+
+        private void Youtube_Click(object sender, EventArgs e)
+        {
+
+            if (MessageBox.Show($"Are you sure you want to open Youtube?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://www.youtube.com/@eldertoad98");
+            }
+
+        }
+
+
+        private void Github_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Are you sure you want to open Github?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
+            }
+        }
+
 
         private static void OpenUrl(string url)
         {

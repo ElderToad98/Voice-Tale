@@ -11,12 +11,14 @@ namespace Voice_Tale
     {
         private readonly DatabaseOperations dbop;
         private readonly string specifiedName;
+        private readonly MiscOperations op;
 
         public MainMenu()
         {
             InitializeComponent();
             dbop = new DatabaseOperations();
             specifiedName = dbop.GetName();
+            op = new MiscOperations();
         }
 
         // Main Info Button
@@ -29,17 +31,38 @@ namespace Voice_Tale
         #region side panel
         private void Settings_Click(object sender, EventArgs e)
         {
-            Settings s = new Settings();
-
-            s.ShowDialog();
+            op.OpenForm<Settings>();
 
         }
 
-        private void Discord_Click(object sender, EventArgs e) => OpenUrl("https://discord.gg/u7AVjUt2kZ");
+        private void Discord_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Are you sure you want to open Discord?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://discord.gg/u7AVjUt2kZ");
+            }
+        }
 
-        private void Youtube_Click_1(object sender, EventArgs e) => OpenUrl("https://www.youtube.com/@eldertoad98");
 
-        private void Github_Click_1(object sender, EventArgs e) => OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
+
+        private void Youtube_Click_1(object sender, EventArgs e) {
+
+            if (MessageBox.Show($"Are you sure you want to open Youtube?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://www.youtube.com/@eldertoad98");
+            }
+
+        }
+
+
+        private void Github_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Are you sure you want to open Github?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                OpenUrl("https://github.com/ElderToad98/Voice-Tale/tree/master");
+            }
+        }
+
 
         #endregion
 
@@ -62,9 +85,7 @@ namespace Voice_Tale
         private void CommandCreate_Click(object sender, EventArgs e)
         {
 
-            Creation c = new Creation();
-
-            c.ShowDialog();
+            op.OpenForm<Creation>();
 
         }
 
@@ -72,8 +93,8 @@ namespace Voice_Tale
         // This opens the command execution window
         private void button1_Click(object sender, EventArgs e)
         {
-            Execution ex = new Execution();
-            ex.ShowDialog();
+
+            op.OpenForm<Execution>();
 
 
         }
@@ -85,15 +106,16 @@ namespace Voice_Tale
 
         private void manualCommandButton_Click(object sender, EventArgs e)
         {
-            ManualCommand manualCommand = new ManualCommand();
-            manualCommand.ShowDialog();
+
+            op.OpenForm<ManualCommand>();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            variables v = new variables();
-            v.ShowDialog();
+            op.OpenForm<variables>();
 
         }
+        
+
     }
 }

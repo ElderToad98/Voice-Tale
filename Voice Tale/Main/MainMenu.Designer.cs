@@ -140,7 +140,7 @@
             commandCreateButton.Image = (Image)resources.GetObject("commandCreateButton.Image");
             commandCreateButton.Location = new Point(120, 100);
             commandCreateButton.Name = "commandCreateButton";
-            commandCreateButton.Size = new Size(320, 200);
+            commandCreateButton.Size = new Size(294, 148);
             commandCreateButton.TabIndex = 10;
             commandCreateButton.Text = "Command Creation";
             commandCreateButton.TextAlign = ContentAlignment.BottomCenter;
@@ -156,9 +156,9 @@
             commandExecuteButton.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             commandExecuteButton.ForeColor = Color.White;
             commandExecuteButton.Image = (Image)resources.GetObject("commandExecuteButton.Image");
-            commandExecuteButton.Location = new Point(470, 100);
+            commandExecuteButton.Location = new Point(479, 100);
             commandExecuteButton.Name = "commandExecuteButton";
-            commandExecuteButton.Size = new Size(320, 200);
+            commandExecuteButton.Size = new Size(294, 148);
             commandExecuteButton.TabIndex = 12;
             commandExecuteButton.Text = "Command Execution";
             commandExecuteButton.TextAlign = ContentAlignment.BottomCenter;
@@ -174,9 +174,9 @@
             manualCommandButton.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             manualCommandButton.ForeColor = Color.White;
             manualCommandButton.Image = (Image)resources.GetObject("manualCommandButton.Image");
-            manualCommandButton.Location = new Point(820, 100);
+            manualCommandButton.Location = new Point(844, 100);
             manualCommandButton.Name = "manualCommandButton";
-            manualCommandButton.Size = new Size(320, 200);
+            manualCommandButton.Size = new Size(294, 148);
             manualCommandButton.TabIndex = 14;
             manualCommandButton.Text = "Send Manual Command";
             manualCommandButton.TextAlign = ContentAlignment.BottomCenter;
@@ -192,9 +192,9 @@
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
             button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(470, 334);
+            button1.Location = new Point(120, 270);
             button1.Name = "button1";
-            button1.Size = new Size(320, 200);
+            button1.Size = new Size(294, 148);
             button1.TabIndex = 15;
             button1.Text = "Variable Creation";
             button1.TextAlign = ContentAlignment.BottomCenter;

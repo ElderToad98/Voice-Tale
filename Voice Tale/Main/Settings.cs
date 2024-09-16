@@ -32,81 +32,90 @@ namespace Voice_Tale.Main
         private void Save_Click(object sender, EventArgs e)
         {
 
-            // ServerID
-            var serverId = ServerID.Text;
-            if (string.IsNullOrWhiteSpace(serverId))
+            if (MessageBox.Show($"Are you sure you want to save these settings?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                MessageBox.Show("Server ID cannot be empty!");
-                return;
+                // ServerID
+                var serverId = ServerID.Text;
+                if (string.IsNullOrWhiteSpace(serverId))
+                {
+                    MessageBox.Show("Server ID cannot be empty!");
+                    return;
+                }
+
+                if (!serverId.All(char.IsDigit))
+                {
+                    MessageBox.Show("Server ID must contain only digits!");
+                    return;
+                }
+
+                int serverInt;
+                if (!int.TryParse(serverId, out serverInt))
+                {
+                    MessageBox.Show("Invalid Server ID format!");
+                    return;
+                }
+                dbop.ChangeServerId(serverInt);
+
+
+                // Confidence
+
+                var c = Confidence.Text;
+                if (string.IsNullOrWhiteSpace(c))
+                {
+                    MessageBox.Show("Confidence cannot be empty!");
+                    return;
+                }
+
+                float cInt;
+                if (!float.TryParse(c, out cInt))
+                {
+                    MessageBox.Show("Invalid Confidence format!");
+                    return;
+                }
+
+                dbop.ChangeConfidence(cInt);
+
+                // Beep on Command
+                if (Beep.Checked)
+                {
+
+                    dbop.ChangeBeep(1);
+
+                }
+                else
+                {
+                    dbop.ChangeBeep(0);
+                }
+
+                // Speak on command
+
+
+                if (Speak.Checked)
+                {
+
+                    dbop.ChangeVoice(1);
+
+                }
+                else
+                {
+                    dbop.ChangeVoice(0);
+                }
+
+
+
+
+
+                MessageBox.Show("Settings saved!");
+
+
+                this.Close();
             }
 
-            if (!serverId.All(char.IsDigit))
-            {
-                MessageBox.Show("Server ID must contain only digits!");
-                return;
-            }
-
-            int serverInt;
-            if (!int.TryParse(serverId, out serverInt))
-            {
-                MessageBox.Show("Invalid Server ID format!");
-                return;
-            }
-            dbop.ChangeServerId(serverInt);
-
-
-            // Confidence
-
-            var c = Confidence.Text;
-            if (string.IsNullOrWhiteSpace(c))
-            {
-                MessageBox.Show("Confidence cannot be empty!");
-                return;
-            }
-
-            float cInt;
-            if (!float.TryParse(c, out cInt))
-            {
-                MessageBox.Show("Invalid Confidence format!");
-                return;
-            }
-
-            dbop.ChangeConfidence(cInt);
-
-            // Beep on Command
-            if (Beep.Checked)
-            {
-
-                dbop.ChangeBeep(1);
-
-            }
             else
             {
-                dbop.ChangeBeep(0);
+                MessageBox.Show("Settings not saved!");
+                this.Close();
             }
-
-            // Speak on command
-
-
-            if (Speak.Checked)
-            {
-
-                dbop.ChangeVoice(1);
-
-            }
-            else
-            {
-                dbop.ChangeVoice(0);
-            }
-
-
-
-
-
-            MessageBox.Show("Settings saved!");
-
-
-            this.Close();
 
 
         }

@@ -70,7 +70,7 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             FileName.TabIndex = 1;
             FileName.Text = "File Name";
             FileName.TextAlign = ContentAlignment.MiddleCenter;
-            FileName.Click += FileName_Click;
+            
             // 
             // RedoButton
             // 
@@ -122,7 +122,6 @@ namespace Voice_Tale.Main.Voice_Commands.Text_Editor
             MinimumSize = new Size(800, 450);
             Name = "FileEditor";
             Text = "Voice Tale | Toad Text";
-            Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

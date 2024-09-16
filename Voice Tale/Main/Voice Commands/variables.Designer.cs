@@ -17,7 +17,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(variables));
             panel1 = new Panel();
-            File = new PictureBox();
             Info = new PictureBox();
             mainPanel = new Panel();
             DeleteButton = new Button();
@@ -32,7 +31,6 @@
             VariableNameLabel = new Label();
             TitleLabel = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)File).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Info).BeginInit();
             mainPanel.SuspendLayout();
             SuspendLayout();
@@ -40,25 +38,12 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(114, 137, 218);
-            panel1.Controls.Add(File);
             panel1.Controls.Add(Info);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(80, 553);
             panel1.TabIndex = 9;
-            // 
-            // File
-            // 
-            File.Cursor = Cursors.Hand;
-            File.Image = (Image)resources.GetObject("File.Image");
-            File.Location = new Point(14, 254);
-            File.Name = "File";
-            File.Size = new Size(51, 62);
-            File.SizeMode = PictureBoxSizeMode.Zoom;
-            File.TabIndex = 16;
-            File.TabStop = false;
-            File.Click += File_Click;
             // 
             // Info
             // 
@@ -236,7 +221,6 @@
             Text = "Voice Tale | Variable Management";
             Load += VariableSaving_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)File).EndInit();
             ((System.ComponentModel.ISupportInitialize)Info).EndInit();
             mainPanel.ResumeLayout(false);
             mainPanel.PerformLayout();
@@ -245,7 +229,6 @@
 
         private Panel panel1;
         private PictureBox Info;
-        private PictureBox File;
         private Panel mainPanel;
         private Label TitleLabel;
         private TextBox VariableName;
