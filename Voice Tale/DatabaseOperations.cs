@@ -126,30 +126,22 @@ namespace Voice_Tale
 
 
         // Gets Confidence
-        public int GetPresence()
+        public bool IsPresence()
         {
-            int Confidence = 1; // Default value if no Confidence is found
-            string sql = "SELECT Presence FROM Users WHERE ID = (SELECT ID FROM Users LIMIT 1)";
-
-            using (var connection = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                connection.Open();
-                using (var command = new SQLiteCommand(sql, connection))
+                conn.Open();
+                string sql = "SELECT Presence FROM Users LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
-                    using (var reader = command.ExecuteReader())
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) == 1)
                     {
-                        if (reader.Read())
-                        {
-                            if (!reader.IsDBNull(reader.GetOrdinal("Presence")))
-                            {
-                                Confidence = reader.GetOrdinal("Presence");
-                            }
-                        }
+                        return true;
                     }
                 }
+                return false;
             }
-
-            return Confidence;
         }
 
         public void ChangeBeep(int beep)

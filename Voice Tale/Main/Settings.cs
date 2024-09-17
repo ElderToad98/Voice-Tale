@@ -24,6 +24,9 @@ namespace Voice_Tale.Main
 
             Beep.Checked = dbop.IsBeep();
             Speak.Checked = dbop.IsVoice();
+            DiscordPresence.Checked = dbop.IsPresence();
+
+
 
         }
 
@@ -101,8 +104,19 @@ namespace Voice_Tale.Main
                     dbop.ChangeVoice(0);
                 }
 
+                // Discord Presence
 
 
+                if (DiscordPresence.Checked)
+                {
+
+                    dbop.ChangePresence(1);
+
+                }
+                else
+                {
+                    dbop.ChangePresence(0);
+                }
 
 
                 MessageBox.Show("Settings saved!");

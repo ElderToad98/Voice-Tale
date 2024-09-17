@@ -125,6 +125,12 @@ namespace Voice_Tale
 
         private async void MainMenu_Load(object sender, EventArgs e)
         {
+
+            if (!dbop.IsPresence())
+            {
+                return;
+            }
+
             await op.RPCInit();
             await UpdateRPC();
         }
