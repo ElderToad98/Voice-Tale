@@ -6,6 +6,9 @@ Additionally, only open the project files if you are ready to face my ugly and u
 
 The newest downloadable version can be found in this google drive link:
 
+Join Our Discord:
+https://discord.gg/x2uTrdPvsK
+
 You could also clone this repo to use it.
 **ONLY WORKS FOR WINDOWS OS**
 
