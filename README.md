@@ -10,6 +10,7 @@ Join Our Discord:
 https://discord.gg/x2uTrdPvsK
 
 You could also clone this repo to use it.
+
 **ONLY WORKS FOR WINDOWS OS**
 
 # Features
