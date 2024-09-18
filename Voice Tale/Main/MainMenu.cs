@@ -8,6 +8,8 @@ using DiscordRPC;
 using DiscordRPC.Logging;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Speech.Recognition;
+using System.Data.SQLite;
 
 namespace Voice_Tale
 {
@@ -17,6 +19,7 @@ namespace Voice_Tale
         private readonly string specifiedName;
         private readonly MiscOperations op;
         private static DiscordRpcClient client;
+        static SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();
 
         public MainMenu(MiscOperations op)
         {
@@ -25,9 +28,69 @@ namespace Voice_Tale
 
             dbop = new DatabaseOperations();
             specifiedName = dbop.GetName();
+
+
+            if (dbop.IsVoiceShortcuts())
+            {
+                recognizer.SetInputToDefaultAudioDevice();
+                recognizer.LoadGrammar(CreateGrammar()); // Load predefined grammar for recognition
+                recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+                recognizer.RecognizeAsync(RecognizeMode.Multiple); // Keep listening
+            }
         }
 
+        
+        private static void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            DatabaseOperations dbop = new DatabaseOperations();
+            MiscOperations op = new MiscOperations();
+            if (e.Result.Confidence <= dbop.GetConfidence())
+            {
+                return;
+            }
 
+            string recognizedText = e.Result.Text.ToLower();
+
+            switch (recognizedText)
+            {
+                case "open settings":
+                    op.OpenForm<Settings>();
+                    break;
+
+                case "open command creation":
+                    op.OpenForm<Creation>();
+                    break;
+
+                case "open manual command sender":
+                    op.OpenForm<ManualCommand>();
+                    break;
+
+                case "open command execution":
+                    op.OpenForm<Execution>();
+                    break;
+
+                case "open variable creation":
+                    op.OpenForm<variables>();
+                    break;
+
+                    
+            }
+        }
+
+        // Voice shortcut grammar
+        private static Grammar CreateGrammar()
+        {
+            Choices commands = new Choices();
+            commands.Add(new string[] { "open settings", 
+                                        "open command creation", 
+                                        "open manual command sender",
+                                        "open command execution",
+                                        "open variable creation"
+                                         });
+
+            GrammarBuilder grammarBuilder = new GrammarBuilder(commands);
+            return new Grammar(grammarBuilder);
+        }
 
         // Main Info Button
         private void MainInfo_Click(object sender, EventArgs e)

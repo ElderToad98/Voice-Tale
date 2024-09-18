@@ -32,6 +32,10 @@ namespace Voice_Tale.Main
             DiscordPresence = new CheckBox();
             infoButton = new Button();
             Save = new Button();
+            pictureBox1 = new PictureBox();
+            Keyboard = new CheckBox();
+            Voice = new CheckBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -147,7 +151,7 @@ namespace Voice_Tale.Main
             Save.FlatStyle = FlatStyle.Flat;
             Save.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             Save.ForeColor = Color.White;
-            Save.Location = new Point(35, 395);
+            Save.Location = new Point(35, 438);
             Save.Name = "Save";
             Save.Size = new Size(279, 46);
             Save.TabIndex = 13;
@@ -155,12 +159,50 @@ namespace Voice_Tale.Main
             Save.UseVisualStyleBackColor = false;
             Save.Click += Save_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Cursor = Cursors.Hand;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(320, 107);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(42, 29);
+            pictureBox1.TabIndex = 24;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
+            // Keyboard
+            // 
+            Keyboard.AutoSize = true;
+            Keyboard.Font = new Font("Segoe UI", 12F);
+            Keyboard.ForeColor = Color.White;
+            Keyboard.Location = new Point(35, 352);
+            Keyboard.Name = "Keyboard";
+            Keyboard.Size = new Size(207, 32);
+            Keyboard.TabIndex = 25;
+            Keyboard.Text = "Keyboard Shortcuts";
+            Keyboard.UseVisualStyleBackColor = true;
+            // 
+            // Voice
+            // 
+            Voice.AutoSize = true;
+            Voice.Font = new Font("Segoe UI", 12F);
+            Voice.ForeColor = Color.White;
+            Voice.Location = new Point(35, 390);
+            Voice.Name = "Voice";
+            Voice.Size = new Size(169, 32);
+            Voice.TabIndex = 26;
+            Voice.Text = "Voice Shortcuts";
+            Voice.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(343, 479);
+            ClientSize = new Size(358, 504);
+            Controls.Add(Voice);
+            Controls.Add(Keyboard);
+            Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(User);
             Controls.Add(ServerID);
@@ -172,10 +214,11 @@ namespace Voice_Tale.Main
             Controls.Add(infoButton);
             Controls.Add(Save);
             Font = new Font("Segoe UI", 9F);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Settings";
             Text = "Voice Tale | Settings";
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -192,5 +235,8 @@ namespace Voice_Tale.Main
         private Button infoButton;
         private CheckBox DiscordPresence;
         private CheckBox Beep;
+        private PictureBox pictureBox1;
+        private CheckBox Keyboard;
+        private CheckBox Voice;
     }
 }

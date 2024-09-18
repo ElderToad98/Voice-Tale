@@ -6,6 +6,8 @@ using Voice_Tale.Main.Modules;
 using Voice_Tale.Main.Voice_Commands;
 using Voice_Tale.Main;
 using Voice_Tale.Properties;
+using System.Data.SQLite;
+using System.Data.Common;
 
 namespace Voice_Tale
 {
@@ -48,19 +50,25 @@ namespace Voice_Tale
  
     }
 
+
+
     public class KeyMessageFilter : IMessageFilter
     {
         private const int WM_KEYDOWN = 0x0100;
         private readonly MiscOperations mop;
+        private readonly DatabaseOperations dbop;
+
+       
 
         public KeyMessageFilter(MiscOperations mop)
         {
             this.mop = mop ?? throw new ArgumentNullException(nameof(mop));
         }
 
+    
         public bool PreFilterMessage(ref Message m)
         {
-            if (m.Msg == WM_KEYDOWN && Control.ModifierKeys == Keys.Control)
+            if (m.Msg == WM_KEYDOWN && Control.ModifierKeys == Keys.Control && dbop.IsKeyboardShortcuts())
             {
                 try
                 {

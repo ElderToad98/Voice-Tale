@@ -24,9 +24,12 @@ namespace Voice_Tale
                              "Password TEXT NOT NULL, " +
                              "ServerId INTEGER DEFAULT 1234, " +
                              "Confidence REAL DEFAULT 0.94, " +
-                             "BeepOnCommand INTEGER DEFAULT 0, " +
+                             "BeepOnCommand INTEGER DEFAULT 1, " +
                              "SpeakOnCommand INTEGER DEFAULT 0, " +
-                             "Presence INTEGER DEFAULT 0)";
+                             "Presence INTEGER DEFAULT 1, " +
+                             "KeyboardShortcuts INTEGER DEFAULT 1, " +
+                             "VoiceShortcuts INTEGER DEFAULT 1)";
+                    
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
                 {
@@ -105,6 +108,75 @@ namespace Voice_Tale
 
             return Confidence;
         }
+
+
+        public void ChangeVoiceShortcuts(int newV)
+        {
+            string sql = "UPDATE Users SET VoiceShortcuts = @VoiceShortcuts WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@VoiceShortcuts", newV);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool IsVoiceShortcuts()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string sql = "SELECT VoiceShortcuts FROM Users LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) == 1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+
+        public void ChangeKeyboardShortcuts(int newK)
+        {
+            string sql = "UPDATE Users SET KeyboardShortcuts = @KeyboardShortcuts WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@KeyboardShortcuts", newK);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool IsKeyboardShortcuts()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                string sql = "SELECT KeyboardShortcuts FROM Users LIMIT 1";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && Convert.ToInt32(result) == 1)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
 
 
         public void ChangePresence(int newP)
