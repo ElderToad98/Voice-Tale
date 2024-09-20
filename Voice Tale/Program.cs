@@ -15,8 +15,8 @@ namespace Voice_Tale
     {
         [DllImport("Shcore.dll")]
         static extern int SetProcessDpiAwareness(int PROCESS_DPI_AWARENESS);
-        private static DiscordRpcClient client;
-        private static MiscOperations mop;
+        private static DiscordRpcClient? client;
+        private static MiscOperations? mop;
 
         private enum DpiAwareness
         {
@@ -42,7 +42,11 @@ namespace Voice_Tale
             }
             else
             {
-                Application.AddMessageFilter(new KeyMessageFilter(mop));
+                if (dbop.IsKeyboardShortcuts())
+                {
+                    Application.AddMessageFilter(new KeyMessageFilter(mop));
+                }
+                
                 Application.Run(new MainMenu(mop)); 
             }
         }
@@ -68,8 +72,14 @@ namespace Voice_Tale
     
         public bool PreFilterMessage(ref Message m)
         {
-            if (m.Msg == WM_KEYDOWN && Control.ModifierKeys == Keys.Control && dbop.IsKeyboardShortcuts())
+
+
+          
+
+            if (m.Msg == WM_KEYDOWN && Control.ModifierKeys == Keys.Control)
             {
+
+
                 try
                 {
                     switch ((Keys)m.WParam)

@@ -34,7 +34,7 @@ namespace Voice_Tale.Main
             Beep.Checked = dbop.IsBeep();
             Speak.Checked = dbop.IsVoice();
             DiscordPresence.Checked = dbop.IsPresence();
-            Voice.Checked = dbop.IsVoice();
+            Voice.Checked = dbop.IsVoiceShortcuts();
             Keyboard.Checked = dbop.IsKeyboardShortcuts();
         }
 
@@ -127,7 +127,7 @@ namespace Voice_Tale.Main
                 //
                 // Keyboard Shortcuts
                 //
-                if (DiscordPresence.Checked)
+                if (Keyboard.Checked)
                 {
 
                     dbop.ChangeKeyboardShortcuts(1);
@@ -141,11 +141,10 @@ namespace Voice_Tale.Main
                 // Voice Shortcuts
 
 
-                if (DiscordPresence.Checked)
+                if (Voice.Checked)
                 {
 
                     dbop.ChangeVoiceShortcuts(1);
-
                 }
                 else
                 {
@@ -154,7 +153,7 @@ namespace Voice_Tale.Main
 
 
 
-                MessageBox.Show("Settings saved!");
+                MessageBox.Show("Settings saved!\nSome settings require restarting the project to activate.");
 
 
                 this.Close();
