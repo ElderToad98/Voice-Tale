@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using System.Speech.Recognition;
-using System.Diagnostics;
 using Bogus;
 using ProfanityFilter.Interfaces;
-using ProfanityFilter;
+using System.Diagnostics;
+using System.Speech.Recognition;
 using Voice_Tale.Welcome;
-using Bogus.DataSets;
 
 namespace Voice_Tale
 {
@@ -23,7 +17,7 @@ namespace Voice_Tale
         public WelcomeForm()
         {
             InitializeComponent();
-            
+
             this.ActiveControl = label1;
             _profanityFilter = new ProfanityFilter.ProfanityFilter();
             _dbOperations = new DatabaseOperations();
@@ -33,7 +27,7 @@ namespace Voice_Tale
             _recognizer = new SpeechRecognitionEngine();
 
             InitializeProfanityFilter();
-            InitializeSpeechRecognition();
+
         }
 
         private void InitializeProfanityFilter()
@@ -51,7 +45,7 @@ namespace Voice_Tale
 
         private void InitializeSpeechRecognition()
         {
-            
+
             _recognizer.SetInputToDefaultAudioDevice();
 
             var nameList = GenerateNames();
@@ -60,17 +54,17 @@ namespace Voice_Tale
 
             foreach (var name in nameList)
             {
-                FormattedNames = FormattedNames + ", "  + name;
+                FormattedNames = FormattedNames + ", " + name;
             }
 
             //MessageBox.Show(FormattedNames);
 
-            
+
 
             var choices = new Choices(nameList.Select(name => $"my name is {name}").ToArray());
             choices.Add("Hello");
             choices.Add("my name is ElderToad");
-            
+
 
             var grammarBuilder = new GrammarBuilder(choices);
             var grammar = new Grammar(grammarBuilder);
@@ -84,16 +78,16 @@ namespace Voice_Tale
         {
             var faker = new Faker();
 
-            
+
 
             return Enumerable.Range(0, 5000)
                 .Select(_ => faker.Name.FirstName())
                 .Where(name => !_profanityFilter.ContainsProfanity(name))
-                
+
                 .Distinct()
                 .ToList();
 
-            
+
         }
 
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -123,7 +117,7 @@ namespace Voice_Tale
                 _dbOperations.SaveNameToDatabase(NameBox.Text);
                 OpenTownshipLogin();
             }
-          
+
         }
 
         private void OpenTownshipLogin()
@@ -184,6 +178,11 @@ namespace Voice_Tale
             {
                 MessageBox.Show($"An error occurred while opening the URL: {ex.Message}");
             }
+        }
+
+        private void WelcomeForm_Load(object sender, EventArgs e)
+        {
+            InitializeSpeechRecognition();
         }
     }
 }

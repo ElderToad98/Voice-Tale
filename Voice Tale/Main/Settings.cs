@@ -159,7 +159,7 @@ namespace Voice_Tale.Main
                 this.Close();
             }
 
-            
+
 
 
         }

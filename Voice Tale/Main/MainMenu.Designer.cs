@@ -5,7 +5,7 @@
     partial class MainMenu
     {
         private System.ComponentModel.IContainer components = null;
-        private ToolTip toolTip1; // Add this line
+        private ToolTip toolTip1; 
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

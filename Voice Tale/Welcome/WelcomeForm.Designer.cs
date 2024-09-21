@@ -174,6 +174,7 @@ namespace Voice_Tale
             Name = "WelcomeForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Voice Tale | Welcome";
+            Load += WelcomeForm_Load;
             gradientPanel.ResumeLayout(false);
             gradientPanel.PerformLayout();
             logoPanel.ResumeLayout(false);

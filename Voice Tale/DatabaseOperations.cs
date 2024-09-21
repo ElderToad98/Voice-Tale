@@ -28,7 +28,8 @@ namespace Voice_Tale
                              "SpeakOnCommand INTEGER DEFAULT 0, " +
                              "Presence INTEGER DEFAULT 1, " +
                              "KeyboardShortcuts INTEGER DEFAULT 1, " +
-                             "VoiceShortcuts INTEGER DEFAULT 1)";
+                             "VoiceShortcuts INTEGER DEFAULT 1," +
+                             "SelectedMic TEXT)";
                     
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
@@ -109,7 +110,7 @@ namespace Voice_Tale
             return Confidence;
         }
 
-
+        
         public void ChangeVoiceShortcuts(int newV)
         {
             string sql = "UPDATE Users SET VoiceShortcuts = @VoiceShortcuts WHERE ID = (SELECT ID FROM Users LIMIT 1)";
@@ -195,7 +196,56 @@ namespace Voice_Tale
         }
 
 
+        public string GetSelectedMicrophone()
+        {
+            string SelectedMic = null;
+            string sql = "SELECT SelectedMic FROM Users WHERE ID = (SELECT ID FROM Users LIMIT 1)";
 
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand(sql, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            SelectedMic = reader["SelectedMic"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return SelectedMic;
+        }
+
+
+        public void SaveSelectedMicrophone(string SelectedMic)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+
+
+                string updateSql = "UPDATE Users SET SelectedMic = @SelectedMic WHERE ID = (SELECT ID FROM Users LIMIT 1)";
+                using (SQLiteCommand updateCmd = new SQLiteCommand(updateSql, conn))
+                {
+                    updateCmd.Parameters.AddWithValue("@SelectedMic", SelectedMic);
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+
+                    if (rowsAffected == 0)
+                    {
+                        string insertSql = "INSERT INTO Users (SelectedMic) VALUES (@SelectedMic)";
+                        using (SQLiteCommand insertCmd = new SQLiteCommand(insertSql, conn))
+                        {
+                            insertCmd.Parameters.AddWithValue("@SelectedMic", SelectedMic);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
 
         // Gets Confidence
         public bool IsPresence()
@@ -708,6 +758,26 @@ namespace Voice_Tale
             return new List<string>();
         }
 
+        public List<string> GetRawCommandByName(string commandName)
+        {
+            string filePath = GetFilePath("commands.txt");
+            string[] lines = File.ReadAllLines(filePath);
+
+            foreach (string line in lines)
+            {
+                if (line.StartsWith(commandName + "("))
+                {
+                    int startIndex = line.IndexOf('(') + 1;
+                    int endIndex = line.LastIndexOf(')');
+                    string commandString = line.Substring(startIndex, endIndex - startIndex);
+
+                    // Return as a single-item list for consistency with the existing method signature
+                    return new List<string>;
+                }
+            }
+
+            return new List<string>();
+        }
 
         private List<string> SplitCommands(string commandsString)
         {

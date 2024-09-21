@@ -97,7 +97,7 @@ namespace Voice_Tale.Main.Voice_Commands
             if (CommandList.SelectedItem != null)
             {
                 string commandName = CommandList.SelectedItem.ToString();
-                List<string> commandStrings = _dbOps.GetCommandByName(commandName);
+                List<string> commandStrings = _dbOps.GetRawCommandByName(commandName);
                 if (commandStrings.Any())
                 {
                     CommandName.Text = commandName;

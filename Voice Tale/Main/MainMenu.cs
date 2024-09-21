@@ -39,7 +39,7 @@ namespace Voice_Tale
             }
         }
 
-        
+
         private static void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             DatabaseOperations dbop = new DatabaseOperations();
@@ -73,7 +73,7 @@ namespace Voice_Tale
                     op.OpenForm<variables>();
                     break;
 
-                    
+
             }
         }
 
@@ -81,8 +81,8 @@ namespace Voice_Tale
         private static Grammar CreateGrammar()
         {
             Choices commands = new Choices();
-            commands.Add(new string[] { "open settings", 
-                                        "open command creation", 
+            commands.Add(new string[] { "open settings",
+                                        "open command creation",
                                         "open manual command sender",
                                         "open command execution",
                                         "open variable creation"
@@ -205,7 +205,7 @@ namespace Voice_Tale
                 // Wait asynchronously for 5 seconds
                 await Task.Delay(5000);
 
-                
+
 
                 // Get the active form
                 var activeForm = Form.ActiveForm;
@@ -215,14 +215,14 @@ namespace Voice_Tale
                     continue; // Exit the loop if no active form
                 }
 
-             
+
                 var formName = activeForm.Name;
 
-                
+
                 //MessageBox.Show($"Focused Form: {formName}");
                 var rpc = "";
 
-                switch (formName) 
+                switch (formName)
                 {
                     case ("MainMenu"):
                         rpc = "In The Menu!";
@@ -243,7 +243,7 @@ namespace Voice_Tale
                         rpc = "Executing Manual Commands!";
                         break;
                     default:
-                        rpc  = "Having Fun!";
+                        rpc = "Having Fun!";
                         break;
                 }
 
