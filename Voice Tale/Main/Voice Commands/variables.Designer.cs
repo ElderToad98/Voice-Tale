@@ -216,10 +216,10 @@
             Controls.Add(panel1);
             Font = new Font("Corbel", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.White;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 600);
             Name = "variables";
             Text = "Voice Tale | Variable Management";
-            WindowState = FormWindowState.Maximized;
             Load += VariableSaving_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Info).EndInit();

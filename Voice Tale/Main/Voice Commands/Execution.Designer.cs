@@ -29,7 +29,6 @@
             instructionLabel = new Label();
             titleLabel = new Label();
             connLabel = new Label();
-            DeleteButton = new Button();
             sidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)File).BeginInit();
             mainPanel.SuspendLayout();
@@ -77,7 +76,6 @@
             // mainPanel
             // 
             mainPanel.BackColor = Color.FromArgb(35, 39, 42);
-            mainPanel.Controls.Add(DeleteButton);
             mainPanel.Controls.Add(commandLogPanel);
             mainPanel.Controls.Add(commandListPanel);
             mainPanel.Controls.Add(instructionLabel);
@@ -199,19 +197,6 @@
             connLabel.TabIndex = 20;
             connLabel.Text = "Connected Server: None";
             // 
-            // DeleteButton
-            // 
-            DeleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            DeleteButton.BackColor = Color.Lime;
-            DeleteButton.FlatStyle = FlatStyle.Flat;
-            DeleteButton.ForeColor = Color.WhiteSmoke;
-            DeleteButton.Location = new Point(432, 23);
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(84, 51);
-            DeleteButton.TabIndex = 25;
-            DeleteButton.Text = "Pause Listening";
-            DeleteButton.UseVisualStyleBackColor = false;
-            // 
             // Execution
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -249,6 +234,5 @@
         private Label commandLogLabel;
         private ListBox commandList;
         private PictureBox File;
-        private Button DeleteButton;
     }
 }

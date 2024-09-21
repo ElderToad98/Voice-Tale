@@ -772,7 +772,7 @@ namespace Voice_Tale
                     string commandString = line.Substring(startIndex, endIndex - startIndex);
 
                     // Return as a single-item list for consistency with the existing method signature
-                    return new List<string>;
+                    return new List<string> { };
                 }
             }
 

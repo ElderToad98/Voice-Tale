@@ -126,7 +126,7 @@
             CommandListLabel.ForeColor = Color.FromArgb(153, 170, 181);
             CommandListLabel.Location = new Point(23, 296);
             CommandListLabel.Name = "CommandListLabel";
-            CommandListLabel.Size = new Size(169, 24);
+            CommandListLabel.Size = new Size(170, 24);
             CommandListLabel.TabIndex = 18;
             CommandListLabel.Text = "Edit Command List";
             // 
@@ -184,7 +184,7 @@
             CommandsLabel.ForeColor = Color.FromArgb(153, 170, 181);
             CommandsLabel.Location = new Point(23, 206);
             CommandsLabel.Name = "CommandsLabel";
-            CommandsLabel.Size = new Size(108, 24);
+            CommandsLabel.Size = new Size(107, 24);
             CommandsLabel.TabIndex = 14;
             CommandsLabel.Text = "Commands";
             // 
@@ -207,7 +207,7 @@
             CommandNameLabel.ForeColor = Color.FromArgb(153, 170, 181);
             CommandNameLabel.Location = new Point(23, 116);
             CommandNameLabel.Name = "CommandNameLabel";
-            CommandNameLabel.Size = new Size(155, 24);
+            CommandNameLabel.Size = new Size(154, 24);
             CommandNameLabel.TabIndex = 12;
             CommandNameLabel.Text = "Command Name";
             // 
@@ -218,7 +218,7 @@
             TitleLabel.ForeColor = Color.FromArgb(114, 137, 218);
             TitleLabel.Location = new Point(23, 20);
             TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(410, 54);
+            TitleLabel.Size = new Size(388, 54);
             TitleLabel.TabIndex = 10;
             TitleLabel.Text = "Command Creation";
             // 
@@ -231,6 +231,7 @@
             Controls.Add(panel1);
             Font = new Font("Corbel", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.White;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(800, 600);
             Name = "Creation";
             Text = "Voice Tale | Command Creation";
