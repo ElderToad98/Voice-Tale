@@ -15,7 +15,7 @@ namespace Voice_Tale.Welcome
 
 
 
-        DatabaseOperations dbop;
+        DatabaseOperations dbop = new DatabaseOperations();
         public IWebApiClient WebApiClient { get; private set; }
         private bool loggingIn = false;
         private CancellationTokenSource animationCancellationTokenSource;

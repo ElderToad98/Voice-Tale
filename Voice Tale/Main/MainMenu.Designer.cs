@@ -21,7 +21,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-          
             sidePanel = new Panel();
             settingsButton = new Button();
             githubButton = new Button();
@@ -37,15 +36,6 @@
             pictureBox1 = new PictureBox();
             contentPanel = new Panel();
             toolTip1 = new ToolTip(components);
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 1000;
-            toolTip1.ReshowDelay = 500;
-            toolTip1.ShowAlways = true;
-            toolTip1 = new ToolTip(components);
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 1000;
-            toolTip1.ReshowDelay = 500;
-            toolTip1.ShowAlways = true;
             sidePanel.SuspendLayout();
             topPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -77,6 +67,7 @@
             settingsButton.Name = "settingsButton";
             settingsButton.Size = new Size(95, 114);
             settingsButton.TabIndex = 4;
+            toolTip1.SetToolTip(settingsButton, "Open Settings");
             settingsButton.UseVisualStyleBackColor = true;
             settingsButton.Click += Settings_Click;
             // 
@@ -91,6 +82,7 @@
             githubButton.Name = "githubButton";
             githubButton.Size = new Size(95, 114);
             githubButton.TabIndex = 3;
+            toolTip1.SetToolTip(githubButton, "Visit our GitHub");
             githubButton.UseVisualStyleBackColor = true;
             githubButton.Click += Github_Click_1;
             // 
@@ -105,6 +97,7 @@
             youtubeButton.Name = "youtubeButton";
             youtubeButton.Size = new Size(95, 114);
             youtubeButton.TabIndex = 2;
+            toolTip1.SetToolTip(youtubeButton, "Check our YouTube channel");
             youtubeButton.UseVisualStyleBackColor = true;
             youtubeButton.Click += Youtube_Click_1;
             // 
@@ -119,6 +112,7 @@
             discordButton.Name = "discordButton";
             discordButton.Size = new Size(96, 114);
             discordButton.TabIndex = 1;
+            toolTip1.SetToolTip(discordButton, "Join our Discord server");
             discordButton.UseVisualStyleBackColor = true;
             discordButton.Click += Discord_Click;
             // 
@@ -133,6 +127,7 @@
             mainInfoButton.Name = "mainInfoButton";
             mainInfoButton.Size = new Size(98, 114);
             mainInfoButton.TabIndex = 0;
+            toolTip1.SetToolTip(mainInfoButton, "Main Information");
             mainInfoButton.UseVisualStyleBackColor = true;
             mainInfoButton.Click += MainInfo_Click;
             // 
@@ -170,6 +165,7 @@
             variableCreationButton.Size = new Size(365, 167);
             variableCreationButton.TabIndex = 15;
             variableCreationButton.Text = "➕\nVariable Creation";
+            toolTip1.SetToolTip(variableCreationButton, "Create new variables");
             variableCreationButton.UseVisualStyleBackColor = false;
             variableCreationButton.Click += button1_Click_1;
             // 
@@ -185,6 +181,7 @@
             manualCommandButton.Size = new Size(365, 167);
             manualCommandButton.TabIndex = 14;
             manualCommandButton.Text = "⌨\nSend Manual Command";
+            toolTip1.SetToolTip(manualCommandButton, "Send a manual command");
             manualCommandButton.UseVisualStyleBackColor = false;
             manualCommandButton.Click += manualCommandButton_Click;
             // 
@@ -200,6 +197,7 @@
             commandExecuteButton.Size = new Size(365, 167);
             commandExecuteButton.TabIndex = 12;
             commandExecuteButton.Text = "💬\nCommand Execution";
+            toolTip1.SetToolTip(commandExecuteButton, "Execute existing commands");
             commandExecuteButton.UseVisualStyleBackColor = false;
             commandExecuteButton.Click += button1_Click;
             // 
@@ -216,6 +214,7 @@
             commandCreateButton.Size = new Size(365, 167);
             commandCreateButton.TabIndex = 10;
             commandCreateButton.Text = "➕\nCommand Creation";
+            toolTip1.SetToolTip(commandCreateButton, "Create new commands");
             commandCreateButton.UseVisualStyleBackColor = false;
             commandCreateButton.Click += CommandCreate_Click;
             // 
@@ -242,19 +241,13 @@
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1083, 540);
             contentPanel.TabIndex = 10;
-            //
-            // Tooltips
-            //
-      
-            toolTip1.SetToolTip(settingsButton, "Open Settings");
-            toolTip1.SetToolTip(githubButton, "Visit our GitHub");
-            toolTip1.SetToolTip(youtubeButton, "Check our YouTube channel");
-            toolTip1.SetToolTip(discordButton, "Join our Discord server");
-            toolTip1.SetToolTip(mainInfoButton, "Main Information");
-            toolTip1.SetToolTip(variableCreationButton, "Create new variables");
-            toolTip1.SetToolTip(manualCommandButton, "Send a manual command");
-            toolTip1.SetToolTip(commandExecuteButton, "Execute existing commands");
-            toolTip1.SetToolTip(commandCreateButton, "Create new commands");
+            // 
+            // toolTip1
+            // 
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
             // 
             // MainMenu
             // 
@@ -279,7 +272,6 @@
             contentPanel.ResumeLayout(false);
             contentPanel.PerformLayout();
             ResumeLayout(false);
-
         }
 
         #endregion

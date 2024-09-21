@@ -95,7 +95,7 @@ namespace Voice_Tale
         // Main Info Button
         private void MainInfo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Hello {specifiedName}!\nWelcome to the wonderful menu of Voice Tale!\n\nThis is the space where you can gain access to all sorts of things, such as command creation, command execution, and much more!\n\nVersion: M1");
+            MessageBox.Show($"Hello {specifiedName}!\nWelcome to the wonderful menu of Voice Tale!\n\nThis is the space where you can gain access to all sorts of things, such as command creation, command execution, and much more!\n\nVersion: M2");
         }
 
 
