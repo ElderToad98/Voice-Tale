@@ -85,9 +85,9 @@ namespace Voice_Tale
                     switch ((Keys)m.WParam)
                     {
                         case Keys.M: mop.OpenForm<ManualCommand>(); return true;
-                        case Keys.V: mop.OpenForm<variables>(); return true;
+                        case Keys.W: mop.OpenForm<variables>(); return true;
                         case Keys.E: mop.OpenForm<Execution>(); return true;
-                        case Keys.C: mop.OpenForm<Creation>(); return true;
+                        case Keys.Q: mop.OpenForm<Creation>(); return true;
                         case Keys.S: mop.OpenForm<Settings>(); return true;
                     }
                 }
