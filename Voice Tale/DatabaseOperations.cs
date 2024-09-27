@@ -588,13 +588,14 @@ namespace Voice_Tale
         {
             string filePath = GetFilePath("commands.txt");
 
-            // Check for invalid characters
+            // Checks for invalid characters
             if (commandName.Contains('(') || commandName.Contains(')') || commandString.Contains('(') || commandString.Contains(')'))
             {
                 MessageBox.Show("Command name or command string cannot contain '(' or ')'.");
                 return false;
             }
 
+            /*
             // Handle dynamic command generation
             if (commandName.Contains("{dynamicint"))
             {
@@ -604,14 +605,15 @@ namespace Voice_Tale
                     string commandLine = $"{cmd.Key}({cmd.Value})";
                     File.AppendAllText(filePath, commandLine + Environment.NewLine);
                 }
-            }
+            */
+
             else
             {
-                // Original command saving logic
+               
                 if (File.ReadAllLines(filePath).Any(line => line.ToLower().StartsWith(commandName.ToLower() + "(")))
                 {
-                    MessageBox.Show("Command already exists!\nDelete the command from the file to overwrite!");
-                    return false;
+                    MessageBox.Show($"Overwrited command '{commandName}'!");
+                    DeleteCommand(commandName);
                 }
                 string commandLine = $"{commandName}({commandString})";
                 File.AppendAllText(filePath, commandLine + Environment.NewLine);
@@ -772,7 +774,7 @@ namespace Voice_Tale
                     string commandString = line.Substring(startIndex, endIndex - startIndex);
 
                     // Return as a single-item list for consistency with the existing method signature
-                    return new List<string> { };
+                    return new List<string> { commandString };
                 }
             }
 
