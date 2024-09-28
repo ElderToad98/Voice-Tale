@@ -241,6 +241,7 @@
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1083, 540);
             contentPanel.TabIndex = 10;
+            contentPanel.Paint += contentPanel_Paint;
             // 
             // toolTip1
             // 

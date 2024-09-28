@@ -28,10 +28,12 @@ namespace Voice_Tale.Main.Voice_Commands
             CommandList.Items.AddRange(commands.ToArray());
         }
 
-        private void Save_Click(object sender, EventArgs e)
+        private async void Save_Click(object sender, EventArgs e)
         {
             string commandName = CommandName.Text.Trim();
             string commands = Commands.Text.Trim();
+
+            
 
             if (string.IsNullOrEmpty(commandName))
             {
@@ -59,6 +61,7 @@ namespace Voice_Tale.Main.Voice_Commands
                     MessageBox.Show($"Command '{commandName}' saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RefreshCommandList();
                     ClearInputFields();
+                    await MiscOperations.SendWebhookMessage($"{_dbOps.GetUsername()} Created a Command!", commandName);
                 }
             }
             catch (Exception ex)

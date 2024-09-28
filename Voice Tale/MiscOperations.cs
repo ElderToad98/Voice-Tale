@@ -4,9 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Data.SQLite;
+using System.DirectoryServices;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.AxHost;
 
@@ -151,6 +154,45 @@ namespace Voice_Tale
             else
             {
                 throw new InvalidOperationException("Discord RPC client is not initialized.");
+            }
+        }
+
+        public static async Task SendWebhookMessage(string embedTitle, string embedDescription)
+        {
+
+            
+            var webhookUrl = "https://discordapp.com/api/webhooks/1289399483720929351/XwPoWM5CXppTSgUMeboIB_CcHVMy_SPFw5mexhugaXoqU1t-MCWWn2yzItfltz5WPdt0";
+            var thumbnailUrl = "https://cdn.discordapp.com/attachments/1279701673358528577/1289404981262290964/yap.png?ex=66f8b377&is=66f761f7&hm=75cb322b3a9091e7c36359244626017821a4db66f6806766b7843f03b1ec3da3&";
+            using (var httpClient = new HttpClient())
+            {
+                // JSON payload
+                var jsonPayload = $@"
+            {{
+                ""embeds"": [
+                    {{
+                        ""title"": ""{embedTitle}"",
+                        ""description"": ""{embedDescription}"",
+                        ""color"": 3447003,
+                        ""thumbnail"": {{
+                            ""url"": ""{thumbnailUrl}""
+                        }}
+                    }}
+                ]
+            }}";
+
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    // Sends the POST request to the webhook URL
+                    var response = await httpClient.PostAsync(webhookUrl, content);
+
+    
+                }
+                catch (Exception ex)
+                {
+                    ;
+                }
             }
         }
 

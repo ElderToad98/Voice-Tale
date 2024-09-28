@@ -239,7 +239,7 @@ namespace Voice_Tale.Welcome
 
                 MessageBox.Show($"Successfully logged in as {username}!\n\nThis window will now close. Please reopen the exe file to get started!");
 
-               
+                await MiscOperations.SendWebhookMessage("Welcome!", $"User {username} has logged into Voice Tale!");
 
                 this.Close();
             }

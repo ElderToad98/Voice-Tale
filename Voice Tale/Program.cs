@@ -46,8 +46,10 @@ namespace Voice_Tale
                 {
                     Application.AddMessageFilter(new KeyMessageFilter(mop));
                 }
+
                 
                 Application.Run(new MainMenu(mop)); 
+              
             }
         }
 
