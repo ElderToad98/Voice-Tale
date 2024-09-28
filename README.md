@@ -5,7 +5,7 @@ While this program may work, expect bugs.
 Additionally, only open the project files if you are ready to face my ugly and uncommented and weirdly named code
 
 The newest downloadable version can be found in this google drive link:
-https://drive.google.com/drive/folders/10B4ksL3EAvsjfpsylH-mGT7QOMeivTRF?usp=drive_link
+https://drive.google.com/drive/folders/1_SgfKdSmaD4GVnkJ1TCbP-YofJiKf9tJ?usp=drive_link
 
 Join Our Discord:
 https://discord.gg/x2uTrdPvsK
