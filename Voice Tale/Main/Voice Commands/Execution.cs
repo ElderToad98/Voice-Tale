@@ -97,7 +97,7 @@ namespace Voice_Tale.Main.Voice_Commands
                 {
                     try
                     {
-                        MessageBox.Show(cmd);
+                        //MessageBox.Show(cmd);
                         await consoleClient.RunCommandAsync(cmd);
                     }
                     catch (Exception ex)
