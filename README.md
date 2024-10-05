@@ -5,6 +5,7 @@ While this program may work, expect bugs.
 Additionally, only open the project files if you are ready to face my ugly and uncommented and weirdly named code
 
 The newest downloadable version can be found in this google drive link:
+https://drive.google.com/drive/folders/1_SgfKdSmaD4GVnkJ1TCbP-YofJiKf9tJ?usp=drive_link
 
 Join Our Discord:
 https://discord.gg/x2uTrdPvsK
@@ -25,7 +26,7 @@ You could also clone this repo to use it.
 - Much More to Come!
 
 # Built in Variables
-- **{dynamicint 1234}**
+- **{dynamicint 1234} (NOT WORKING)**
   In a speech command name, specify the amount of commands to generate based on the number used after `dynamicint`
   In the commmands to execute, use `{dynamicint}` to use the incremented integer generated.
   Please note that creating hundreds or thousands of commands with this will drastically increase loading times when opening Command Creation/Command Execution
@@ -43,8 +44,8 @@ You could also clone this repo to use it.
 # Keyboard Shortcuts
 - CTRL + S = Settings
 - CTRL + M = Manual Command Sending
-- CTRL + C = Voice Command Creation
-- CTRL + V = Variable Creation
+- CTRL + Q = Voice Command Creation
+- CTRL + W = Variable Creation
 - CTRL + E = Voice Command Execution
 
 # Voice Shortcuts
