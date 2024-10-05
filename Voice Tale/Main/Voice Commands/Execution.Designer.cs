@@ -20,6 +20,7 @@
             File = new PictureBox();
             infoButton = new Button();
             mainPanel = new Panel();
+            AudioLevel = new ProgressBar();
             commandLogPanel = new Panel();
             commandLogLabel = new Label();
             commandLog = new ListBox();
@@ -44,7 +45,7 @@
             sidePanel.Dock = DockStyle.Left;
             sidePanel.Location = new Point(0, 0);
             sidePanel.Name = "sidePanel";
-            sidePanel.Size = new Size(80, 561);
+            sidePanel.Size = new Size(80, 619);
             sidePanel.TabIndex = 9;
             // 
             // File
@@ -76,6 +77,7 @@
             // mainPanel
             // 
             mainPanel.BackColor = Color.FromArgb(35, 39, 42);
+            mainPanel.Controls.Add(AudioLevel);
             mainPanel.Controls.Add(commandLogPanel);
             mainPanel.Controls.Add(commandListPanel);
             mainPanel.Controls.Add(instructionLabel);
@@ -85,9 +87,17 @@
             mainPanel.Location = new Point(80, 0);
             mainPanel.Name = "mainPanel";
             mainPanel.Padding = new Padding(20);
-            mainPanel.Size = new Size(870, 561);
+            mainPanel.Size = new Size(870, 619);
             mainPanel.TabIndex = 10;
             mainPanel.Paint += mainPanel_Paint_2;
+            // 
+            // AudioLevel
+            // 
+            AudioLevel.ForeColor = Color.FromArgb(35, 60, 42);
+            AudioLevel.Location = new Point(28, 578);
+            AudioLevel.Name = "AudioLevel";
+            AudioLevel.Size = new Size(830, 18);
+            AudioLevel.TabIndex = 24;
             // 
             // commandLogPanel
             // 
@@ -98,7 +108,7 @@
             commandLogPanel.Location = new Point(460, 150);
             commandLogPanel.Name = "commandLogPanel";
             commandLogPanel.Padding = new Padding(10);
-            commandLogPanel.Size = new Size(390, 391);
+            commandLogPanel.Size = new Size(390, 393);
             commandLogPanel.TabIndex = 24;
             // 
             // commandLogLabel
@@ -123,7 +133,7 @@
             commandLog.ItemHeight = 23;
             commandLog.Location = new Point(10, 50);
             commandLog.Name = "commandLog";
-            commandLog.Size = new Size(370, 322);
+            commandLog.Size = new Size(370, 299);
             commandLog.TabIndex = 18;
             // 
             // commandListPanel
@@ -135,7 +145,7 @@
             commandListPanel.Location = new Point(20, 150);
             commandListPanel.Name = "commandListPanel";
             commandListPanel.Padding = new Padding(10);
-            commandListPanel.Size = new Size(390, 391);
+            commandListPanel.Size = new Size(390, 393);
             commandListPanel.TabIndex = 23;
             // 
             // commandList
@@ -149,7 +159,7 @@
             commandList.ItemHeight = 23;
             commandList.Location = new Point(10, 50);
             commandList.Name = "commandList";
-            commandList.Size = new Size(370, 322);
+            commandList.Size = new Size(370, 299);
             commandList.TabIndex = 23;
             // 
             // commandListLabel
@@ -202,7 +212,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(950, 561);
+            ClientSize = new Size(950, 619);
             Controls.Add(mainPanel);
             Controls.Add(sidePanel);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -234,5 +244,6 @@
         private Label commandLogLabel;
         private ListBox commandList;
         private PictureBox File;
+        private ProgressBar AudioLevel;
     }
 }

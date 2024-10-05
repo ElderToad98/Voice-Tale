@@ -35,6 +35,7 @@ namespace Voice_Tale.Main
             pictureBox1 = new PictureBox();
             Keyboard = new CheckBox();
             Voice = new CheckBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -194,12 +195,30 @@ namespace Voice_Tale.Main
             Voice.Text = "Voice Shortcuts";
             Voice.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 192, 192);
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Corbel", 8.25F);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(54, 490);
+            button1.Name = "button1";
+            button1.Size = new Size(248, 29);
+            button1.TabIndex = 27;
+            button1.Text = "Reset Username or Password";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(35, 39, 42);
-            ClientSize = new Size(358, 504);
+            ClientSize = new Size(368, 540);
+            Controls.Add(button1);
             Controls.Add(Voice);
             Controls.Add(Keyboard);
             Controls.Add(pictureBox1);
@@ -218,6 +237,7 @@ namespace Voice_Tale.Main
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Settings";
             Text = "Voice Tale | Settings";
+            Load += Settings_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -238,5 +258,6 @@ namespace Voice_Tale.Main
         private PictureBox pictureBox1;
         private CheckBox Keyboard;
         private CheckBox Voice;
+        private Button button1;
     }
 }

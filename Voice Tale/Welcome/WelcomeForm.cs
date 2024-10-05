@@ -182,7 +182,7 @@ namespace Voice_Tale
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
-            InitializeSpeechRecognition();
+            //InitializeSpeechRecognition();
         }
     }
 }

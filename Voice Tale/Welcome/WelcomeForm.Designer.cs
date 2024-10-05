@@ -70,7 +70,7 @@ namespace Voice_Tale
             Youtube.Image = (Image)resources.GetObject("Youtube.Image");
             Youtube.Location = new Point(62, 402);
             Youtube.Name = "Youtube";
-            Youtube.Size = new Size(186, 154);
+            Youtube.Size = new Size(153, 154);
             Youtube.TabIndex = 3;
             Youtube.TabStop = false;
             Youtube.Click += Youtube_Click;
@@ -114,11 +114,11 @@ namespace Voice_Tale
             label2.AutoSize = true;
             label2.Font = new Font("Corbel", 13F);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(332, 134);
+            label2.Location = new Point(328, 114);
             label2.Name = "label2";
-            label2.Size = new Size(737, 54);
+            label2.Size = new Size(734, 81);
             label2.TabIndex = 2;
-            label2.Text = "Voice Tale is an interactive Township Tale tool similar to Voice Attack.\nPlease enter what we should call you, or say \"My name is {name}\" to get started!";
+            label2.Text = "Voice Tale is a tool similar to Voice Attack that revolutionizes speech recognition\r\nbots in a Township Tale. To get started, enter your name!\r\n ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3

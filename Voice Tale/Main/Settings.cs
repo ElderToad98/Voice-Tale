@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Voice_Tale.Welcome;
 
 namespace Voice_Tale.Main
 {
@@ -164,16 +165,6 @@ namespace Voice_Tale.Main
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Beep_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void infoButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This is the area where you can change your settings, duh.\n\nServer ID: The server ID that all commands will be sent on.\n\nConfidence: Speech recognition confidence. The higher the number the more confident the program has to be to run a voice command. 0.94 seems to work best.\n\nBeep on Command: Beep when a voice command is ran successfully.\n\nTTS on Command: Text to speech will say your command name when the voice command is executed successfully.\n\nDiscord Presence: Sets/Unsets your discord status to Voice Tale");
@@ -200,5 +191,29 @@ namespace Voice_Tale.Main
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var tl = new TownshipLogin();
+
+
+            foreach (Form openForm in Application.OpenForms)
+            {
+                openForm.Hide();
+            }
+
+            tl.ShowDialog();
+
+
+            foreach (Form openForm in Application.OpenForms)
+            {
+                openForm.Show();
+            }
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            button1.FlatStyle = FlatStyle.Flat;
+            
+        }
     }
 }

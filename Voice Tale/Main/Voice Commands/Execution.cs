@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 using Voice_Tale.Main.Voice_Commands.Text_Editor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 using System.Speech.Synthesis;
+using NAudio.Wave;
 
 namespace Voice_Tale.Main.Voice_Commands
 {
@@ -33,6 +34,7 @@ namespace Voice_Tale.Main.Voice_Commands
         private IConsoleClient consoleClient;
         private MiscOperations op;
         private SpeechRecognitionEngine recognizer;
+        private bool isRecording = false;
 
         public Execution()
         {
@@ -43,8 +45,17 @@ namespace Voice_Tale.Main.Voice_Commands
 
             InitializeSpeechRecognition();
 
+            var waveIn = new WaveInEvent();
+            waveIn.DataAvailable += OnDataAvailable;
+            waveIn.WaveFormat = new WaveFormat(44100, 1);
+            waveIn.BufferMilliseconds = 20;
+            waveIn.StartRecording();
+            isRecording = true;
 
-
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = 50; // Update every 50ms
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
         private async void InitializeSpeechRecognition()
@@ -91,7 +102,7 @@ namespace Voice_Tale.Main.Voice_Commands
             var recognizedText = e.Result.Text;
 
             var cmds = dbop.GetCommandByName(recognizedText);
-            if (consoleClient is not null)
+            if (consoleClient != null)
             {
                 foreach (var cmd in cmds)
                 {
@@ -241,7 +252,6 @@ namespace Voice_Tale.Main.Voice_Commands
 
                 Task<IConsoleClient> buildTask = Task.Run(() => builder.BuildConsoleClient(webApiClient, serverId));
 
-                // Wait for the build task with a timeout
                 if (await Task.WhenAny(buildTask, Task.Delay(TimeSpan.FromSeconds(30))) == buildTask)
                 {
                     consoleClient = await buildTask;
@@ -276,19 +286,39 @@ namespace Voice_Tale.Main.Voice_Commands
             }
         }
 
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        private void OnDataAvailable(object sender, WaveInEventArgs args)
         {
-
+            if (isRecording)
+            {
+                float max = 0;
+                var buffer = new WaveBuffer(args.Buffer);
+      
+                for (int index = 0; index < args.BytesRecorded / 2; index++)
+                {
+                    var sample = buffer.ShortBuffer[index];
+                    var sample32 = sample / 32768f; 
+                 
+                    if (sample32 < 0) sample32 = -sample32;
+             
+                    if (sample32 > max) max = sample32;
+                }
+                lastPeakLevel = max;
+            }
         }
 
-        private void CommandList_SelectedIndexChanged(object sender, EventArgs e)
+        private float lastPeakLevel = 0f;
+
+        private void Timer_Tick(object sender, EventArgs e)
         {
-
-        }
-
-        private void mainPanel_Paint_1(object sender, PaintEventArgs e)
-        {
-
+            // Update the AudioLevel on the UI thread
+            if (AudioLevel.InvokeRequired)
+            {
+                AudioLevel.Invoke(new Action(() => AudioLevel.Value = (int)(lastPeakLevel * 100)));
+            }
+            else
+            {
+                AudioLevel.Value = (int)(lastPeakLevel * 100);
+            }
         }
 
         private void mainPanel_Paint_2(object sender, PaintEventArgs e)

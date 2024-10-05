@@ -195,7 +195,7 @@ namespace Voice_Tale
 
             await op.RPCInit();
             await UpdateRPC();
-           
+
         }
 
         private async Task UpdateRPC()
@@ -256,6 +256,14 @@ namespace Voice_Tale
         private void contentPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            ModuleMenu m = new ModuleMenu();
+            this.Hide();
+            m.ShowDialog();
+            this.Show();
         }
     }
 }
