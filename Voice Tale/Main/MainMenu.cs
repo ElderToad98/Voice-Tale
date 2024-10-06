@@ -260,10 +260,10 @@ namespace Voice_Tale
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            ModuleMenu m = new ModuleMenu();
-            this.Hide();
-            m.ShowDialog();
-            this.Show();
+            //ModuleMenu m = new ModuleMenu();
+            //this.Hide();
+            //m.ShowDialog();
+            //this.Show();
         }
     }
 }
